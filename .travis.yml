@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - '0.10'
+before_install:
+  - currentfolder=${PWD##*/}
+  - if [ "$currentfolder" != 'generator-distributions-io' ]; then cd .. && eval "mv $currentfolder generator-distributions-io" && cd generator-distributions-io; fi
+after_script:
+  - npm run coveralls
+
