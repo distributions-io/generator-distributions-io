@@ -28,7 +28,8 @@
     "distributions.io",
     "distributions",
     "probability",
-    "statistics"
+    "statistics",
+    "stats"
   ],
   "bugs": {
     "url": "https://github.com/distributions-io/generator-distributions-io/issues"
