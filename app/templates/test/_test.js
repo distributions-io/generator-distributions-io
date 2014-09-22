@@ -102,7 +102,9 @@ describe( '<%= name %>', function tests() {
 
 	describe( 'entropy', function tests() {
 
-		it( 'should provide a method to get the distribution entropy' );
+		it( 'should provide a method to get the distribution entropy', function test() {
+			expect( dist.entropy ).to.be.a( 'function' );
+		});
 
 		it( 'should return the distribution entropy' );
 
@@ -110,7 +112,9 @@ describe( '<%= name %>', function tests() {
 
 	describe( 'information', function tests() {
 
-		it( 'should provide a method to get the distribution information' );
+		it( 'should provide a method to get the distribution information', function test() {
+			expect( dist.information ).to.be.a( 'function' );
+		});
 
 		it( 'should return the distribution information' );
 
@@ -124,6 +128,52 @@ describe( '<%= name %>', function tests() {
 
 		it( 'should return a function', function test() {
 			expect( dist.pdf() ).to.be.a( 'function' );
+		});
+
+		it( 'should throw an error if not provided an array', function test() {
+			var values = [
+					5,
+					'5',
+					true,
+					undefined,
+					null,
+					NaN,
+					{},
+					function(){}
+				];
+
+			for ( var i = 0; i < values.length; i++ ) {
+				expect( badValue( values[i] ) ).to.throw( TypeError );
+			}
+
+			function badValue( value ) {
+				return function() {
+					dist.pdf( value );
+				};
+			}
+		});
+
+		it( 'should throw an error if array contains non-numeric values', function test() {
+			var values = [
+					[],
+					'5',
+					true,
+					undefined,
+					null,
+					NaN,
+					{},
+					function(){}
+				];
+
+			for ( var i = 0; i < values.length; i++ ) {
+				expect( badValue( values[i] ) ).to.throw( TypeError );
+			}
+
+			function badValue( value ) {
+				return function() {
+					dist.pdf( [value] );
+				};
+			}
 		});
 
 		it( 'should evaluate the pdf' );
@@ -140,15 +190,123 @@ describe( '<%= name %>', function tests() {
 			expect( dist.cdf() ).to.be.a( 'function' );
 		});
 
+		it( 'should throw an error if not provided an array', function test() {
+			var values = [
+					5,
+					'5',
+					true,
+					undefined,
+					null,
+					NaN,
+					{},
+					function(){}
+				];
+
+			for ( var i = 0; i < values.length; i++ ) {
+				expect( badValue( values[i] ) ).to.throw( TypeError );
+			}
+
+			function badValue( value ) {
+				return function() {
+					dist.cdf( value );
+				};
+			}
+		});
+
+		it( 'should throw an error if array contains non-numeric values', function test() {
+			var values = [
+					[],
+					'5',
+					true,
+					undefined,
+					null,
+					NaN,
+					{},
+					function(){}
+				];
+
+			for ( var i = 0; i < values.length; i++ ) {
+				expect( badValue( values[i] ) ).to.throw( TypeError );
+			}
+
+			function badValue( value ) {
+				return function() {
+					dist.cdf( [value] );
+				};
+			}
+		});
+
 		it( 'should evaluate the cdf' );
 
 	}); // end TESTS cdf
 
 	describe( 'quantile', function test() {
 
-		it( 'should provide a method to get/evaluate the distribution quantile function' );
+		it( 'should provide a method to get/evaluate the distribution quantile function', function test() {
+			expect( dist.quantile ).to.be.a( 'function' );
+		});
 
-		it( 'should return a function' );
+		it( 'should return a function', function test() {
+			expect( dist.quantile() ).to.be.a( 'function' );
+		});
+
+		it( 'should throw an error if not provided an array', function test() {
+			var values = [
+					5,
+					'5',
+					true,
+					undefined,
+					null,
+					NaN,
+					{},
+					function(){}
+				];
+
+			for ( var i = 0; i < values.length; i++ ) {
+				expect( badValue( values[i] ) ).to.throw( TypeError );
+			}
+
+			function badValue( value ) {
+				return function() {
+					dist.quantile( value );
+				};
+			}
+		});
+
+		it( 'should throw an error if array contains non-numeric values', function test() {
+			var values = [
+					[],
+					'5',
+					true,
+					undefined,
+					null,
+					NaN,
+					{},
+					function(){}
+				];
+
+			for ( var i = 0; i < values.length; i++ ) {
+				expect( badValue( values[i] ) ).to.throw( TypeError );
+			}
+
+			function badValue( value ) {
+				return function() {
+					dist.quantile( [value] );
+				};
+			}
+		});
+
+		it( 'should throw an error if array contains numeric values not on the interval [0,1]', function test() {
+			var values = [ -0.01, 1.01 ];
+			for ( var i = 0; i < values.length; i++ ) {
+				expect( badValue( values[i] ) ).to.throw( Error );
+			}
+			function badValue( value ) {
+				return function() {
+					dist.quantile( [value] );
+				};
+			}
+		});
 
 		it( 'should evaluate the quantile function' );
 

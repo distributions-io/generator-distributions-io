@@ -34,6 +34,72 @@
 	// var module = require( 'module' );
 
 
+	// FUNCTIONS //
+
+	/**
+	* FUNCTION: getPDF()
+	*	Returns a probability density function for a distribution.
+	*
+	* @private
+	* @returns {Function} probability density function (PDF)
+	*/
+	function getPDF() {
+		/**
+		* FUNCTION: pdf( x )
+		*	Evaluates the probability distribution function at input value `x`.
+		*
+		* @private
+		* @param {Number} x - input value
+		* @returns {Number} evaluated PDF
+		*/
+		return function pdf( x ) {
+			return x;
+		};
+	} // end FUNCTION getPDF()
+
+	/**
+	* FUNCTION: getCDF()
+	*	Returns a cumulative density function for a distribution.
+	*
+	* @private
+	* @returns {Function} cumulative density function (CDF)
+	*/
+	function getCDF() {
+		/**
+		* FUNCTION: cdf( x )
+		*	Evaluates the cumulative distribution function at input value `x`.
+		*
+		* @private
+		* @param {Number} x - input value
+		* @returns {Number} evaluated CDF
+		*/
+		return function cdf( x ) {
+			return x;
+		};
+	} // end FUNCTION getCDF()
+
+	/**
+	* FUNCTION: getQuantileFunction()
+	*	Returns a quantile function for a distribution.
+	*
+	* @private
+	* @returns {Function} quantile function
+	*/
+	function getQuantileFunction() {
+		/**
+		* FUNCTION: quantile( x )
+		*	Evaluates the quantile function at input value `x`.
+		*
+		* @private
+		* @param {Number} x - input value
+		* @returns {Number} evaluated quantile function
+		*/
+		return function quantile( x ) {
+			return x;
+		};
+	} // end FUNCTION getQuantileFunction()
+
+
 	// DISTRIBUTION //
 
 	/**
@@ -163,7 +229,7 @@
 	Distribution.prototype.pdf = function( vec ) {
 		var pdf, len, arr, val;
 
-		pdf = null;
+		pdf = getPDF();
 
 		if ( !arguments.length ) {
 			return pdf;
@@ -193,7 +259,7 @@
 	Distribution.prototype.cdf = function( vec ) {
 		var cdf, len, arr, val;
 
-		cdf = null;
+		cdf = getCDF();
 
 		if ( !arguments.length ) {
 			return cdf;
@@ -223,7 +289,7 @@
 	Distribution.prototype.quantile = function( vec ) {
 		var q, len, arr, val;
 
-		q = null;
+		q = getQuantileFunction();
 
 		if ( !arguments.length ) {
 			return q;
