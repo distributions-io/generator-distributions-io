@@ -140,7 +140,7 @@ var cdf = dist.cdf( data );
 ```
 
 
-#### normal.quantile( [arr] )
+#### dist.quantile( [arr] )
 
 If a cumulative probability vector is not provided, returns a quantile function. If a cumulative probability vector is provided, evaluates the quantile function for each vector element.
 
