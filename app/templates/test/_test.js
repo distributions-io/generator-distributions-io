@@ -242,12 +242,12 @@ describe( '<%= name %>', function tests() {
 
 	describe( 'quantile', function test() {
 
-		it( 'should provide a method to get/evaluate the distribution quantile function', function test() {
-			expect( dist.quantile ).to.be.a( 'function' );
+		it( 'should provide a method to get/evaluate the inverse cumulative distribution (quantile) function', function test() {
+			expect( dist.inv ).to.be.a( 'function' );
 		});
 
 		it( 'should return a function', function test() {
-			expect( dist.quantile() ).to.be.a( 'function' );
+			expect( dist.inv() ).to.be.a( 'function' );
 		});
 
 		it( 'should throw an error if not provided an array', function test() {
@@ -268,7 +268,7 @@ describe( '<%= name %>', function tests() {
 
 			function badValue( value ) {
 				return function() {
-					dist.quantile( value );
+					dist.inv( value );
 				};
 			}
 		});
@@ -291,7 +291,7 @@ describe( '<%= name %>', function tests() {
 
 			function badValue( value ) {
 				return function() {
-					dist.quantile( [value] );
+					dist.inv( [value] );
 				};
 			}
 		});
@@ -303,7 +303,7 @@ describe( '<%= name %>', function tests() {
 			}
 			function badValue( value ) {
 				return function() {
-					dist.quantile( [value] );
+					dist.inv( [value] );
 				};
 			}
 		});

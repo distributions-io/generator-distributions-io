@@ -280,13 +280,13 @@
 	}; // end METHOD cdf()
 
 	/**
-	* METHOD: quantile( [vec] )
-	*	If provided an input vector, evaluates the distribution quantile function for each vector element. If no input argument is provided, returns the quantile function.
+	* METHOD: inv( [vec] )
+	*	If provided an input vector, evaluates the inverse cumulative distribution  function (aka the quantile function) for each vector element. If no input argument is provided, returns the quantile function.
 	*
 	* @param {Array} [vec] - 1d input array
 	* @returns {Function|Array} distribution quantile function or evaluated quantile function
 	*/
-	Distribution.prototype.quantile = function( vec ) {
+	Distribution.prototype.inv = function( vec ) {
 		var q, len, arr, val;
 
 		q = getQuantileFunction();
@@ -295,22 +295,22 @@
 			return q;
 		}
 		if ( !Array.isArray( vec ) ) {
-			throw new TypeError( 'quantile()::invalid input argument. Must provide an array.' );
+			throw new TypeError( 'inv()::invalid input argument. Must provide an array.' );
 		}
 		len = vec.length;
 		arr = new Array( len );
 		for ( var i = 0; i < len; i++ ) {
 			val = vec[ i ];
 			if ( typeof val !== 'number' || val !== val ) {
-				throw new TypeError( 'quantile()::invalid input argument. Array must only contain numeric values.' );
+				throw new TypeError( 'inv()::invalid input argument. Array must only contain numeric values.' );
 			}
 			if ( val < 0 || val > 1 ) {
-				throw new Error( 'quantile()::invalid input argument. Array values must exist on the interval [0,1].' );
+				throw new Error( 'inv()::invalid input argument. Array values must exist on the interval [0,1].' );
 			}
 			arr[ i ] = q( val );
 		}
 		return arr;
-	}; // end METHOD quantile()
+	}; // end METHOD inv()
 
 
 	// EXPORTS //
