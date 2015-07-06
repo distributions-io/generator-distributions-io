@@ -22,7 +22,7 @@ For a general overview of Yeoman generators, see the [Getting Started Guide](htt
 $ npm install -g generator-distributions-io
 ```
 
-## Usage 
+## Usage
 
 Once installed, navigate to the directory in which you want to place generated files and run
 
@@ -43,7 +43,7 @@ The module name requires the convention that the module be prefixed with `distri
 
 Valid names include: `distributions-normal`, `distributions-uniform`, `distributions-exponential`, etc. Do __not__ include spaces or special characters in the name; e.g., `distributions io double @ exponential`.
 
-Also note that using the generator requires internet access, as module name availability is confirmed on NPM via [npm-name](https://github.com/sindresorhus/npm-name). 
+Also note that using the generator requires internet access, as module name availability is confirmed on NPM via [npm-name](https://github.com/sindresorhus/npm-name).
 
 
 #### Git
@@ -189,7 +189,7 @@ By default, the generator generates a [Travis-CI](https://travis-ci.org/) `*.yml
 
 ### Unit
 
-Unit tests use the [Mocha](http://visionmedia.github.io/mocha) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
+Unit tests use the [Mocha](http://mochajs.org) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
 
 ``` bash
 $ make test
@@ -213,15 +213,15 @@ $ open reports/coverage/lcov-report/index.html
 ```
 
 
+---
 ## License
 
 [MIT license](http://opensource.org/licenses/MIT).
 
 
----
 ## Copyright
 
-Copyright &copy; 2014. Athan Reines.
+Copyright &copy; 2014-2015. The [Distributions.io](https://github.com/distributions-io) Authors.
 
 
 

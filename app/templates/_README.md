@@ -16,7 +16,6 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 
 ## Usage
 
-To use the module,
 
 ``` javascript
 var createDist = require( '<%= name %>' );
@@ -37,7 +36,7 @@ Returns the distribution support.
 
 ``` javascript
 dist.support();
-// returns 
+// returns
 ```
 
 
@@ -65,7 +64,7 @@ Returns the distribution `median`.
 
 ``` javascript
 var median = dist.median();
-// equals 
+// equals
 ```
 
 
@@ -75,7 +74,7 @@ Returns the distribution `mode`.
 
 ``` javascript
 var mode = dist.mode();
-// equals 
+// equals
 ```
 
 
@@ -85,7 +84,7 @@ Returns the distribution `skewness`.
 
 ``` javascript
 var skewness = dist.skewness();
-// returns 
+// returns
 ```
 
 #### dist.ekurtosis()
@@ -94,7 +93,7 @@ Returns the distribution `excess kurtosis`.
 
 ``` javascript
 var excess = dist.ekurtosis();
-// returns 
+// returns
 ```
 
 
@@ -114,46 +113,56 @@ Returns the distribution's [differential entropy](http://en.wikipedia.org/wiki/D
 
 ``` javascript
 var entropy = dist.entropy();
-// 
+//
 ```
 
-#### dist.pdf( [arr] )
+#### dist.pdf( [x] )
 
-If a vector is not provided, returns the probability density function (PDF). If a vector is provided, evaluates the PDF for each vector element.
+If no argument is provided, returns the probability density function (PDF). If a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix) is provided, evaluates the PDF for each element.
 
 ``` javascript
-var data = [ -1, -0.5, 0, 0.5, 1 ];
+var data = [ 0, 0.2, 0.5, 0.8 ];
 
 var pdf = dist.pdf( data );
 // returns [...]
 ```
 
-#### dist.cdf( [arr] )
+#### dist.cdf( [x] )
 
-If a vector is not provided, returns the cumulative density function (CDF). If a vector is provided, evaluates the CDF for each vector element.
+If no argument is provided, returns the cumulative distribution function (CDF). If a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix) is provided, evaluates the CDF for each element.
+
 
 ``` javascript
-var data = [ -1, -0.5, 0, 0.5, 1 ];
+var data = [ 0, 0.2, 0.5, 0.8 ];
 
 var cdf = dist.cdf( data );
 // returns [...]
 ```
 
 
-#### dist.inv( [arr] )
+#### dist.quantile( [p] )
 
-If a cumulative probability vector is not provided, returns the inverse cumulative distribution function (aka the quantile function). If a cumulative probability vector is provided, evaluates the quantile function for each vector element.
+If no argument is provided, returns the inverse cumulative distribution (quantile) function. If a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix) of probabilities is provided, evaluates the quantile function for each element.
 
 ``` javascript
 var probs = [ 0.025, 0.5, 0.975 ];
 
-var quantiles = dist.inv( probs );
+var quantiles = dist.quantile( probs );
 // returns [...]
-``` 
+```
 
-Note: all vector values must exist on the interval `[0, 1]`.
+Note: all values must exist on the interval `[0, 1]`. The function returns `NaN` for a value not satisfying this condition.
 
+#### dist.mgf( [t] )
 
+If no argument is provided, returns the moment generating function (MGF) of the distribution. If a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix) is provided, evaluates the MGF for each input element.
+
+``` javascript
+var t = [ 0, 0.5, 1, 1.5, 2 ];
+
+var mgf = dist.mgf( t );
+// returns [...]
+```
 
 ## Examples
 
@@ -172,7 +181,7 @@ $ node ./examples/index.js
 
 ### Unit
 
-Unit tests use the [Mocha](http://visionmedia.github.io/mocha) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
+Unit tests use the [Mocha](http://mochajs.org) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
 
 ``` bash
 $ make test
@@ -196,15 +205,15 @@ $ open reports/coverage/lcov-report/index.html
 ```
 
 
+---
 ## License
 
-[MIT license](http://opensource.org/licenses/MIT). 
+[MIT license](http://opensource.org/licenses/MIT).
 
 
----
 ## Copyright
 
-Copyright &copy; <%= year %>. <%= author %>.
+Copyright &copy; <%= year %>. The [Distributions.io](https://github.com/distributions-io) Authors.
 
 
 [npm-image]: http://img.shields.io/npm/v/<%= name %>.svg

@@ -4,11 +4,17 @@
   "description": "A Yeoman generator for Distributions.io modules.",
   "author": {
     "name": "Athan Reines",
-    "email": "kgryte@gmail.com",
-    "url": "https://github.com/kgryte"
+    "email": "kgryte@gmail.com"
   },
   "contributors": [
-    {}
+    {
+      "name": "Athan Reines",
+      "email": "kgryte@gmail.com"
+    },
+    {
+      "name": "Philipp Burckhardt",
+      "email": "pburckhardt@outlook.com"
+    }
   ],
   "scripts": {
     "test": "./node_modules/.bin/mocha",
@@ -42,10 +48,12 @@
     "yosay": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "1.x.x",
-    "chai": "1.x.x",
+    "mocha": "3.x.x",
+    "chai": "2.x.x",
     "coveralls": "^2.11.1",
-    "istanbul": "^0.3.0"
+    "istanbul": "^0.3.0",
+    "jshint": "2.x.x",
+    "jshint-stylish": "2.x.x"
   },
   "peerDependencies": {
     "yo": ">=1.0.0"
@@ -53,10 +61,5 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT"
-    }
-  ]
+  "license": "MIT"
 }
