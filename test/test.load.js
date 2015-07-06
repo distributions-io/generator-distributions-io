@@ -1,3 +1,5 @@
+/* global require, describe, it */
+'use strict';
 
 // MODULES //
 
@@ -13,7 +15,6 @@ var expect = chai.expect,
 
 // TESTS //
 describe('distributions-io generator', function tests() {
-	'use strict';
 
 	it( 'can be imported' , function test() {
 		var app = require( '../app' );

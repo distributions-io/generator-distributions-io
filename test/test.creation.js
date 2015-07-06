@@ -1,4 +1,5 @@
-
+/* global require, describe, it, beforeEach */
+'use strict';
 
 // MODULES //
 
@@ -14,7 +15,6 @@ var helpers = yeoman.test;
 // TESTS //
 
 describe( 'distributions-io generator', function tests() {
-	'use strict';
 
 	// SETUP //
 
