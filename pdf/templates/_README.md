@@ -4,7 +4,7 @@ Probability Density Function#
 
 > [<%= distribution %>](https://en.wikipedia.org/wiki/<%= distribution %>_distribution) distribution probability density function (PDF).
 
-The [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) (PDF) for a [<%= distribution %](https://en.wikipedia.org/wiki/<%= distribution %_distribution) random variable is
+The [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) (PDF) for a [<%= distribution %>](https://en.wikipedia.org/wiki/<%= distribution %>_distribution) random variable is
 
 <div class="equation" align="center" data-raw-text="" data-equation="eq:pdf_function">
 	<img src="" alt="Probability density function (PDF) for a <%= distribution %> distribution.">
@@ -213,7 +213,7 @@ bool = ( mat === out );
 
 ## Notes
 
-*	If an element is __not__ a numeric value, the evaluated [PDF](https://en.wikipedia.org/wiki/<%= distribution %_distribution) is `NaN`.
+*	If an element is __not__ a numeric value, the evaluated [PDF](https://en.wikipedia.org/wiki/<%= distribution %>_distribution) is `NaN`.
 
 	``` javascript
 	var data, out;

@@ -283,7 +283,11 @@ var Generator = yeoman.generators.Base.extend({
 				'year': this.year
 			};
 
-		this.template( '_LICENSE', 'LICENSE', context );
+		this.fs.copyTpl(
+			this.templatePath( '_LICENSE' ),
+			this.destinationPath( 'LICENSE' ),
+			context
+		);
 	}, // end METHOD license()
 
 	/**
@@ -299,7 +303,11 @@ var Generator = yeoman.generators.Base.extend({
 				'distribution': this.distribution
 			};
 
-		this.template( '_package.json', 'package.json', context );
+		this.fs.copyTpl(
+			this.templatePath( '_package.json' ),
+			this.destinationPath( 'package.json' ),
+			context
+		);
 	}, // end METHOD package()
 
 	/**
@@ -325,7 +333,12 @@ var Generator = yeoman.generators.Base.extend({
 				'parameters': this.parameters
 			};
 
-		this.template( '_README.md', 'README.md', context );
+		this.fs.copyTpl(
+			this.templatePath( '_README.md'),
+			this.destinationPath( 'README.md' ),
+			context
+		);
+
 	}, // end METHOD readme()
 
 	/**
@@ -346,16 +359,43 @@ var Generator = yeoman.generators.Base.extend({
 			}).join( ', ' ),
 			'parameterDoc': this.parameters.map( function( p ) {
 				return '* @param {Number} ' + p.name + ' - ' + p.description;
-			}).join( '\n' )
+			}).join( '\n' ),
 		};
-
-		this.template( 'lib/_accessor.js', 'lib/accessor.js', context );
-		this.template( 'lib/_array.js', 'lib/array.js', context );
-		this.template( 'lib/_deepset.js', 'lib/deepset.js', context );
-		this.template( 'lib/_matrix.js', 'lib/matrix.js', context );
-		this.template( 'lib/_number.js', 'lib/number.js', context );
-		this.template( 'lib/_partial.js', 'lib/partial.js', context );
-		this.template( 'lib/_typedarray.js', 'lib/typedarray.js', context );
+		this.fs.copyTpl(
+			this.templatePath( 'lib/_accessor.js' ),
+			this.destinationPath( 'lib/accessor.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'lib/_array.js' ),
+			this.destinationPath( 'lib/array.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'lib/_deepset.js' ),
+			this.destinationPath( 'lib/deepset.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'lib/_matrix.js' ),
+			'lib/matrix.js',
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'lib/_number.js' ),
+			this.destinationPath( 'lib/number.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'lib/_partial.js' ),
+			this.destinationPath( 'lib/partial.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'lib/_typedarray.js' ),
+			this.destinationPath( 'lib/typedarray.js' ),
+			context
+		);
 
 		context[ 'optsParameters' ] = this.parameters.map( function( p ) {
 			return '* @param {Number} [opts.' + p.name + '=' + p.default + '] - ' + p.description;
@@ -439,7 +479,11 @@ var Generator = yeoman.generators.Base.extend({
 				'name': this.moduleName
 			};
 
-		this.template( 'test/_test.js', 'test/test.js', context );
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.js' ),
+			this.destinationPath( 'test/test.js' ),
+			context
+		);
 	}, // end METHOD test()
 
 	/**
