@@ -221,7 +221,7 @@ $ open reports/coverage/lcov-report/index.html
 
 ## Copyright
 
-Copyright &copy; 2014-2015. The [Distributions.io](https://github.com/distributions-io) Authors.
+Copyright &copy; 2014-2015. The [Compute.io](https://github.com/compute-io) Authors.
 
 
 

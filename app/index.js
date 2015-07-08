@@ -6,6 +6,7 @@ var path = require( 'path' ),
 	yeoman = require( 'yeoman-generator' ),
 	yosay = require( 'yosay' ),
 	shell = require( 'shelljs' ),
+	mkdirp = require('mkdirp'),
 	npmName = require( 'npm-name' ),
 	chalk = require( 'chalk' );
 
@@ -179,10 +180,10 @@ var Generator = yeoman.generators.Base.extend({
 	*	Creates module directories.
 	*/
 	mkdirs: function() {
-		this.mkdir( 'benchmark' );
-		this.mkdir( 'examples' );
-		this.mkdir( 'lib' );
-		this.mkdir( 'test' );
+		mkdirp( 'benchmark' );
+		mkdirp( 'examples' );
+		mkdirp( 'lib' );
+		mkdirp( 'test' );
 	}, // end METHOD mkdirs()
 
 	/**
