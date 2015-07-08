@@ -4,7 +4,7 @@ Probability Density Function#
 
 > [<%= distribution %>](https://en.wikipedia.org/wiki/<%= distribution %>_distribution) distribution probability density function (PDF).
 
-The [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) (PDF) for a [Weibull](https://en.wikipedia.org/wiki/Weibull_distribution) random variable is
+The [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) (PDF) for a [<%= distribution %](https://en.wikipedia.org/wiki/<%= distribution %_distribution) random variable is
 
 <div class="equation" align="center" data-raw-text="" data-equation="eq:pdf_function">
 	<img src="" alt="Probability density function (PDF) for a <%= distribution %> distribution.">
@@ -74,6 +74,12 @@ out = pdf( mat );
 
 The function accepts the following `options`:
 
+<%- parameters
+	.map( function( p ) {
+		return '*\t__' + p.name + '__: ' + p.description + '. Default: `' + p.default + '`.';
+	})
+	.join( '\n' )
+%>
 * 	__accessor__: accessor `function` for accessing `array` values.
 * 	__dtype__: output [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) or [`matrix`](https://github.com/dstructs/matrix) data type. Default: `float64`.
 *	__copy__: `boolean` indicating if the `function` should return a new data structure. Default: `true`.
@@ -86,8 +92,7 @@ A [<%= distribution %>](https://en.wikipedia.org/wiki/<%= distribution %>_distri
 var x = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
 
 var out = pdf( x, {
-	'lambda': 2,
-	'k': 5
+	<%- parameters.map( function( p ) { return '\'' + p.name + '\': ' + Math.round( Math.random() * 10 ) + ',' } ).join( '\n\t' ) %>
 });
 // returns [...]
 ```
@@ -208,7 +213,7 @@ bool = ( mat === out );
 
 ## Notes
 
-*	If an element is __not__ a numeric value, the evaluated [PDF](https://en.wikipedia.org/wiki/Weibull_distribution) is `NaN`.
+*	If an element is __not__ a numeric value, the evaluated [PDF](https://en.wikipedia.org/wiki/<%= distribution %_distribution) is `NaN`.
 
 	``` javascript
 	var data, out;
@@ -266,7 +271,7 @@ bool = ( mat === out );
 ## Examples
 
 ``` javascript
-var pdf = require( 'distributions-<%= distribution %>-pdf' ),
+var pdf = require( '<%= name %>' ),
 	matrix = require( 'dstructs-matrix' );
 
 var data,
