@@ -422,6 +422,7 @@ var Generator = yeoman.generators.Base.extend({
 			switch ( p.domain ) {
 				case 'Real numbers':
 					s += '\tif ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
+					s += '\t\topts.' + p.name + ' = options.' + p.name + ';\n';
 					s += '\t\tif ( !isNumber( opts.' + p.name + ' ) ) {\n';
 					s += '\t\t\treturn new TypeError( \'pdf()::invalid option. `' + p.name + '` parameter must be a number primitive. ';
 					s += 'Option: `\' + opts.' + p.name + ' + \'`.\' );\n';
@@ -431,6 +432,7 @@ var Generator = yeoman.generators.Base.extend({
 				break;
 				case 'Positive real numbers':
 					s += '\tif ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
+					s += '\t\topts.' + p.name + ' = options.' + p.name + ';\n';
 					s += '\t\tif ( !isPositive( opts.' + p.name + ' ) ) {\n';
 					s += '\t\t\treturn new TypeError( \'pdf()::invalid option. `' + p.name + '` parameter must be a positive number. ';
 					s += 'Option: `\' + opts.' + p.name + ' + \'`.\' );\n';
@@ -440,6 +442,7 @@ var Generator = yeoman.generators.Base.extend({
 				break;
 				case 'Non-negative integers':
 					s += '\tif ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
+					s += '\t\topts.' + p.name + ' = options.' + p.name + ';\n';
 					s += '\t\tif ( !isNonNegativeInteger( opts.' + p.name + ' ) ) {\n';
 					s += '\t\t\treturn new TypeError( \'pdf()::invalid option. `' + p.name + '` parameter must be a non-negative integer. ';
 					s += 'Option: `\' + opts.' + p.name + ' + \'`.\' );\n';
@@ -478,7 +481,8 @@ var Generator = yeoman.generators.Base.extend({
 	test: function() {
 		var context = {
 				'name': this.moduleName,
-				'distribution': this.distribution
+				'distribution': this.distribution,
+				'parameters': this.parameters
 			};
 
 		context[ 'parameterTests' ] = this.parameters.map( function(p) {
@@ -558,6 +562,11 @@ var Generator = yeoman.generators.Base.extend({
 		this.fs.copyTpl(
 			this.templatePath( 'test/_test.number.js' ),
 			this.destinationPath( 'test/test.number.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.partial.js' ),
+			this.destinationPath( 'test/test.partial.js' ),
 			context
 		);
 		this.fs.copyTpl(

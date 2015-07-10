@@ -132,7 +132,10 @@ var data = [
 	{'x':[5,2.5]}
 ];
 
-var out = pdf( data, 'x|1', '|' );
+var out = pdf( data, {
+	'path': 'x/1',
+	'sep': '/'
+});
 /*
 	[
 		{'x':[0,]},

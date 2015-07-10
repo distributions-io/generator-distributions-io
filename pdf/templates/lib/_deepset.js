@@ -26,7 +26,7 @@ function pdf( x, <%= parameterArguments %>, path, sep ) {
 		dset,
 		fcn,
 		v, i;
-	if ( arguments.length > 2 ) {
+	if ( arguments.length > <%= 2 + parameters.length %> ) {
 		opts.sep = sep;
 	}
 	if ( len ) {
