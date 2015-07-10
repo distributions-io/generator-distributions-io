@@ -28,7 +28,7 @@ function validate( opts, options ) {
 	if ( !isObject( options ) ) {
 		return new TypeError( 'pdf()::invalid input argument. Options argument must be an object. Value: `' + options + '`.' );
 	}
-	<%- parameterChecks %>
+<%- parameterChecks.join( '\n' ) %>
 	if ( options.hasOwnProperty( 'copy' ) ) {
 		opts.copy = options.copy;
 		if ( !isBoolean( opts.copy ) ) {

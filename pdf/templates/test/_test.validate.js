@@ -41,6 +41,8 @@ describe( 'validate', function tests() {
 		}
 	});
 
+	<%- parameterTests %>
+
 	it( 'should return an error if provided an accessor which is not a function', function test() {
 		var values, err;
 

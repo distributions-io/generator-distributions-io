@@ -250,6 +250,7 @@ var Generator = yeoman.generators.Base.extend({
 		mkdirp( 'examples' );
 		mkdirp( 'lib' );
 		mkdirp( 'test' );
+		mkdirp( 'docs/img' );
 	}, // end METHOD mkdirs()
 
 	/**
@@ -420,7 +421,7 @@ var Generator = yeoman.generators.Base.extend({
 			var s = '';
 			switch ( p.domain ) {
 				case 'Real numbers':
-					s += 'if ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
+					s += '\tif ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
 					s += '\t\tif ( !isNumber( opts.' + p.name + ' ) ) {\n';
 					s += '\t\t\treturn new TypeError( \'pdf()::invalid option. `' + p.name + '` parameter must be a number primitive. ';
 					s += 'Option: `\' + opts.' + p.name + ' + \'`.\' );\n';
@@ -429,7 +430,7 @@ var Generator = yeoman.generators.Base.extend({
 					parameterModules['isNumber'] = 'isNumber = require( \'validate.io-number-primitive\' ),';
 				break;
 				case 'Positive real numbers':
-					s += 'if ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
+					s += '\tif ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
 					s += '\t\tif ( !isPositive( opts.' + p.name + ' ) ) {\n';
 					s += '\t\t\treturn new TypeError( \'pdf()::invalid option. `' + p.name + '` parameter must be a positive number. ';
 					s += 'Option: `\' + opts.' + p.name + ' + \'`.\' );\n';
@@ -438,7 +439,7 @@ var Generator = yeoman.generators.Base.extend({
 					parameterModules['isPositive'] = 'isPositive = require( \'validate.io-positive\' ),';
 				break;
 				case 'Non-negative integers':
-					s += 'if ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
+					s += '\tif ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
 					s += '\t\tif ( !isNonNegativeInteger( opts.' + p.name + ' ) ) {\n';
 					s += '\t\t\treturn new TypeError( \'pdf()::invalid option. `' + p.name + '` parameter must be a non-negative integer. ';
 					s += 'Option: `\' + opts.' + p.name + ' + \'`.\' );\n';
@@ -476,12 +477,97 @@ var Generator = yeoman.generators.Base.extend({
 	*/
 	test: function() {
 		var context = {
-				'name': this.moduleName
+				'name': this.moduleName,
+				'distribution': this.distribution
 			};
+
+		context[ 'parameterTests' ] = this.parameters.map( function(p) {
+			var s = '';
+			switch ( p.domain ) {
+				case 'Real numbers':
+					s += 'it( \'should return an error if provided a non-numeric `' + p.name + '` parameter\', function test() {\n';
+					s += '\t\tvar values, err;\n';
+					s += '\t\t values = [\n';
+					s += '\t\t\t\'5\',\n\t\t\t[],\n\t\t\ttrue,\n\t\t\tundefined,\n\t\t\tnull,\n\t\t\tNaN,\n\t\t\tfunction(){},\n\t\t\t{}\n';
+					s += '\t\t];\n\n';
+					s += '\t\tfor ( var i = 0; i < values.length; i++ ) {\n';
+					s += '\t\t\terr = validate( {}, {\n';
+					s += '\t\t\t\t\'' + p.name + '\': values[ i ]\n';
+					s += '\t\t\t});\n';
+					s += '\t\t\tassert.isTrue( err instanceof TypeError );\n';
+					s += '\t\t}\n';
+					s += '\t});';
+				break;
+				case 'Positive real numbers':
+					s += 'it( \'should return an error if provided a `' + p.name + '` parameter which is not a positive number\', function test() {\n';
+					s += '\t\tvar values, err;\n';
+					s += '\t\t values = [\n';
+					s += '\t\t\t-2,\n\t\t\t\'5\',\n\t\t\t[],\n\t\t\ttrue,\n\t\t\tundefined,\n\t\t\tnull,\n\t\t\tNaN,\n\t\t\tfunction(){},\n\t\t\t{}\n';
+					s += '\t\t];\n\n';
+					s += '\t\tfor ( var i = 0; i < values.length; i++ ) {\n';
+					s += '\t\t\terr = validate( {}, {\n';
+					s += '\t\t\t\t\'' + p.name + '\': values[ i ]\n';
+					s += '\t\t\t});\n';
+					s += '\t\t\tassert.isTrue( err instanceof TypeError );\n';
+					s += '\t\t}\n';
+					s += '\t});';
+				break;
+				case 'Non-negative integers':
+					s += 'it( \'should return an error if provided a `' + p.name + '` parameter which is not a non-negative integer\', function test() {\n';
+					s += '\t\tvar values, err;\n';
+					s += '\t\t values = [\n';
+					s += '\t\t\t-2,\n\t\t\t\'5\',\n\t\t\t[],\n\t\t\ttrue,\n\t\t\tundefined,\n\t\t\tnull,\n\t\t\tNaN,\n\t\t\tfunction(){},\n\t\t\t{}\n';
+					s += '\t\t];\n\n';
+					s += '\t\tfor ( var i = 0; i < values.length; i++ ) {\n';
+					s += '\t\t\terr = validate( {}, {\n';
+					s += '\t\t\t\t\'' + p.name + '\': values[ i ]\n';
+					s += '\t\t\t});\n';
+					s += '\t\t\tassert.isTrue( err instanceof TypeError );\n';
+					s += '\t\t}\n';
+					s += '\t});';
+				break;
+			}
+			return s;
+		}).join( '\n' );
 
 		this.fs.copyTpl(
 			this.templatePath( 'test/_test.js' ),
 			this.destinationPath( 'test/test.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.accessor.js' ),
+			this.destinationPath( 'test/test.accessor.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.array.js' ),
+			this.destinationPath( 'test/test.array.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.deepset.js' ),
+			this.destinationPath( 'test/test.deepset.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.matrix.js' ),
+			this.destinationPath( 'test/test.matrix.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.number.js' ),
+			this.destinationPath( 'test/test.number.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.typedarray.js' ),
+			this.destinationPath( 'test/test.typedarray.js' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.validate.js' ),
+			this.destinationPath( 'test/test.validate.js' ),
 			context
 		);
 	}, // end METHOD test()

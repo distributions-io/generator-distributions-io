@@ -27,7 +27,7 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'distributions-<%= distribution %>-pdf', function tests() {
+describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests() {
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
