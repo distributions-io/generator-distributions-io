@@ -352,6 +352,7 @@ var Generator = yeoman.generators.Base.extend({
 
 		var context = {
 			'distribution': this.distribution,
+			'parameters': this.parameters,
 			'parameterDescriptions': this.parameters.map( function( p ) {
 				return p.description + ' `' + p.name + '`';
 			}).join( ' and ' ),
@@ -506,7 +507,7 @@ var Generator = yeoman.generators.Base.extend({
 					s += 'it( \'should return an error if provided a `' + p.name + '` parameter which is not a positive number\', function test() {\n';
 					s += '\t\tvar values, err;\n';
 					s += '\t\t values = [\n';
-					s += '\t\t\t-2,\n\t\t\t\'5\',\n\t\t\t[],\n\t\t\ttrue,\n\t\t\tundefined,\n\t\t\tnull,\n\t\t\tNaN,\n\t\t\tfunction(){},\n\t\t\t{}\n';
+					s += '\t\t\t-2,\n\t\t\t0,\n\t\t\t\'5\',\n\t\t\t[],\n\t\t\ttrue,\n\t\t\tundefined,\n\t\t\tnull,\n\t\t\tNaN,\n\t\t\tfunction(){},\n\t\t\t{}\n';
 					s += '\t\t];\n\n';
 					s += '\t\tfor ( var i = 0; i < values.length; i++ ) {\n';
 					s += '\t\t\terr = validate( {}, {\n';
@@ -520,7 +521,7 @@ var Generator = yeoman.generators.Base.extend({
 					s += 'it( \'should return an error if provided a `' + p.name + '` parameter which is not a non-negative integer\', function test() {\n';
 					s += '\t\tvar values, err;\n';
 					s += '\t\t values = [\n';
-					s += '\t\t\t-2,\n\t\t\t\'5\',\n\t\t\t[],\n\t\t\ttrue,\n\t\t\tundefined,\n\t\t\tnull,\n\t\t\tNaN,\n\t\t\tfunction(){},\n\t\t\t{}\n';
+					s += '\t\t\t-2,\n\t\t\t2.5,\n\t\t\t\'5\',\n\t\t\t[],\n\t\t\ttrue,\n\t\t\tundefined,\n\t\t\tnull,\n\t\t\tNaN,\n\t\t\tfunction(){},\n\t\t\t{}\n';
 					s += '\t\t];\n\n';
 					s += '\t\tfor ( var i = 0; i < values.length; i++ ) {\n';
 					s += '\t\t\terr = validate( {}, {\n';

@@ -24,9 +24,10 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'matrix <%= distribution %>-pdf', function tests() {
+describe( 'matrix pdf', function tests() {
 
-	var out,
+	var <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>,
+		out,
 		mat,
 		d1,
 		d2,
@@ -36,7 +37,7 @@ describe( 'matrix <%= distribution %>-pdf', function tests() {
 	d2 = new Float64Array( 25 );
 	for ( i = 0; i < d1.length; i++ ) {
 		d1[ i ] = i / 5;
-		d2[ i ] = PDF( i / 5 );
+		d2[ i ] = PDF( i / 5, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> );
 	}
 
 	beforeEach( function before() {
@@ -51,15 +52,15 @@ describe( 'matrix <%= distribution %>-pdf', function tests() {
 	it( 'should throw an error if provided unequal length matrices', function test() {
 		expect( badValues ).to.throw( Error );
 		function badValues() {
-			pdf( matrix( [10,10] ), mat );
+			pdf( matrix( [10,10] ), mat, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> );
 		}
 	});
 
 	it( 'should evaluate the <%= distribution %> pdf for each matrix element', function test() {
 		var actual;
 
-		actual = matrix( [5,5], 'int16' );
-		actual = pdf( actual, mat );
+		actual = matrix( [5,5], 'float64' );
+		actual = pdf( actual, mat, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> );
 
 		assert.deepEqual( actual.data, out.data );
 	});
@@ -71,13 +72,13 @@ describe( 'matrix <%= distribution %>-pdf', function tests() {
 		expected = matrix( [0,0] ).data;
 
 		mat = matrix( [0,10] );
-		assert.deepEqual( pdf( out, mat ).data, expected );
+		assert.deepEqual( pdf( out, mat, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> ).data, expected );
 
 		mat = matrix( [10,0] );
-		assert.deepEqual( pdf( out, mat ).data, expected );
+		assert.deepEqual( pdf( out, mat, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> ).data, expected );
 
 		mat = matrix( [0,0] );
-		assert.deepEqual( pdf( out, mat ).data, expected );
+		assert.deepEqual( pdf( out, mat, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> ).data, expected );
 	});
 
 });

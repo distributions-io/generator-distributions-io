@@ -1,4 +1,4 @@
-Probability Density Function#
+Probability Density Function
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
@@ -11,7 +11,11 @@ The [probability density function](https://en.wikipedia.org/wiki/Probability_den
 	<br>
 </div>
 
-where
+where <%= parameters
+	.map( function( p ) {
+		return '`' + p.name + '` is the ' + p.description;
+	})
+	.join( ' and ' );%>.
 
 ## Installation
 

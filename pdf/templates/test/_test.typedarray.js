@@ -18,7 +18,9 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'typed-array <%= distribution %>-pdf', function tests() {
+describe( 'typed-array pdf', function tests() {
+
+	var <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>;
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
@@ -45,7 +47,7 @@ describe( 'typed-array <%= distribution %>-pdf', function tests() {
 		]);
 		actual = new Float64Array( data.length );
 
-		actual = pdf( actual, data );
+		actual = pdf( actual, data, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> );
 
 		// Evaluated on Wolfram Alpha:
 		expected = new Float64Array([
@@ -58,7 +60,7 @@ describe( 'typed-array <%= distribution %>-pdf', function tests() {
 	});
 
 	it( 'should return an empty array if provided an empty array', function test() {
-		assert.deepEqual( pdf( new Int8Array(), new Int8Array() ), new Int8Array() );
+		assert.deepEqual( pdf( new Int8Array(), new Int8Array(), <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> ), new Int8Array() );
 	});
 
 });

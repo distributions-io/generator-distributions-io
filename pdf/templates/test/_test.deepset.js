@@ -18,7 +18,9 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'deepset <%= distribution %>-pdf', function tests() {
+describe( 'deepset pdf', function tests() {
+
+	var <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\t\t\n' ) %>;
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
@@ -37,7 +39,7 @@ describe( 'deepset <%= distribution %>-pdf', function tests() {
 			{'x':3}
 		];
 
-		data = pdf( data, 'x' );
+		data = pdf( data, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %>, 'x' );
 
 		expected = [
 
@@ -58,7 +60,7 @@ describe( 'deepset <%= distribution %>-pdf', function tests() {
 			{'x':[9,3]}
 		];
 
-		data = pdf( data, 'x/1', '/' );
+		data = pdf( data, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %>, 'x/1', '/' );
 		expected = [
 
 		];
@@ -69,8 +71,8 @@ describe( 'deepset <%= distribution %>-pdf', function tests() {
 	});
 
 	it( 'should return an empty array if provided an empty array', function test() {
-		assert.deepEqual( pdf( [], 'x' ), [] );
-		assert.deepEqual( pdf( [], 'x', '/' ), [] );
+		assert.deepEqual( pdf( [], <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %>, 'x' ), [] );
+		assert.deepEqual( pdf( [], <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %>, 'x', '/' ), [] );
 	});
 
 	it( 'should handle non-numeric values by setting the element to NaN', function test() {
@@ -82,7 +84,7 @@ describe( 'deepset <%= distribution %>-pdf', function tests() {
 			{'x':[]},
 			{'x':{}}
 		];
-		actual = pdf( data, 'x' );
+		actual = pdf( data, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %>, 'x' );
 
 		expected = [
 			{'x':NaN},

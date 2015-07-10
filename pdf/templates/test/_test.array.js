@@ -18,7 +18,9 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'array <%= distribution %>-pdf', function tests() {
+describe( 'array pdf', function tests() {
+
+	var <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>;
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
@@ -45,7 +47,7 @@ describe( 'array <%= distribution %>-pdf', function tests() {
 		];
 		actual = new Array( data.length );
 
-		actual = pdf( actual, data );
+		actual = pdf( actual, data, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> );
 
 		expected = [
 
@@ -65,7 +67,7 @@ describe( 'array <%= distribution %>-pdf', function tests() {
 
 		data = [ true, null, [], {} ];
 		actual = new Array( data.length );
-		actual = pdf( actual, data );
+		actual = pdf( actual, data, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> );
 
 		expected = [ NaN, NaN, NaN, NaN ];
 
