@@ -59,7 +59,7 @@ describe( 'array pdf', function tests() {
 	});
 
 	it( 'should return an empty array if provided an empty array', function test() {
-		assert.deepEqual( pdf( [], [] ), [] );
+		assert.deepEqual( pdf( [], [], <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> ), [] );
 	});
 
 	it( 'should handle non-numeric values by setting the element to NaN', function test() {

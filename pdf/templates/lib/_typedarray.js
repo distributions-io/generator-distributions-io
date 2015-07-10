@@ -21,7 +21,7 @@ function pdf( y, x, <%= parameterArguments %> ) {
 		fcn,
 		i;
 
-	fcn = partial (<%= parameterArguments %> );
+	fcn = partial ( <%= parameterArguments %> );
 	for ( i = 0; i < len; i++ ) {
 		y[ i ] = fcn( x[ i ] );
 	}

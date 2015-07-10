@@ -20,7 +20,7 @@ var expect = chai.expect,
 
 describe( 'deepset pdf', function tests() {
 
-	var <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\t\t\n' ) %>;
+	var <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>;
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
