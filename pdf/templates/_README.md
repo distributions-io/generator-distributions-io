@@ -380,17 +380,17 @@ Copyright &copy; <%= year %>. The [Compute.io](https://github.com/compute-io) Au
 [npm-image]: http://img.shields.io/npm/v/<%= name %>.svg
 [npm-url]: https://npmjs.org/package/<%= name %>
 
-[travis-image]: http://img.shields.io/travis/compute-io/<%= repo %>/master.svg
-[travis-url]: https://travis-ci.org/compute-io/<%= repo %>
+[travis-image]: http://img.shields.io/travis/distributions-io/<%= repo %>/master.svg
+[travis-url]: https://travis-ci.org/distributions-io/<%= repo %>
 
-[coveralls-image]: https://img.shields.io/coveralls/compute-io/<%= repo %>/master.svg
-[coveralls-url]: https://coveralls.io/r/compute-io/<%= repo %>?branch=master
+[coveralls-image]: https://img.shields.io/coveralls/distributions-io/<%= repo %>/master.svg
+[coveralls-url]: https://coveralls.io/r/distributions-io/<%= repo %>?branch=master
 
-[dependencies-image]: http://img.shields.io/david/compute-io/<%= repo %>.svg
-[dependencies-url]: https://david-dm.org/compute-io/<%= repo %>
+[dependencies-image]: http://img.shields.io/david/distributions-io/<%= repo %>.svg
+[dependencies-url]: https://david-dm.org/distributions-io/<%= repo %>
 
-[dev-dependencies-image]: http://img.shields.io/david/dev/compute-io/<%= repo %>.svg
-[dev-dependencies-url]: https://david-dm.org/dev/compute-io/<%= repo %>
+[dev-dependencies-image]: http://img.shields.io/david/dev/distributions-io/<%= repo %>.svg
+[dev-dependencies-url]: https://david-dm.org/dev/distributions-io/<%= repo %>
 
-[github-issues-image]: http://img.shields.io/github/issues/compute-io/<%= repo %>.svg
-[github-issues-url]: https://github.com/compute-io/<%= repo %>/issues
+[github-issues-image]: http://img.shields.io/github/issues/distributions-io/<%= repo %>.svg
+[github-issues-url]: https://github.com/distributions-io/<%= repo %>/issues
