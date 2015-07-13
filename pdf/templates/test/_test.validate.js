@@ -158,7 +158,7 @@ describe( 'validate', function tests() {
 		var err;
 
 		err = validate( {}, {
-			<%- parameters.map( function( p ) { return '\'' + p.name + '\': ' + p.default } ).join( ',\n\t\t\t' ) %>
+			<%- parameters.map( function( p ) { return '\'' + p.name + '\': ' + p.default } ).join( ',\n\t\t\t' ) %>,
 			'accessor': function getValue(){},
 			'copy': false,
 			'deepset': true,

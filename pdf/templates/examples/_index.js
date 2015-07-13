@@ -53,9 +53,9 @@ console.log( '\n' );
 
 // ----
 // Typed arrays...
-data = new Int32Array( 10 );
+data = new Float32Array( 10 );
 for ( i = 0; i < data.length; i++ ) {
-	data[ i ] = i;
+	data[ i ] = i * 0.5;
 }
 tmp = pdf( data );
 out = '';
@@ -70,7 +70,7 @@ console.log( 'Typed arrays: %s\n', out );
 
 // ----
 // Matrices...
-mat = matrix( data, [5,2], 'int32' );
+mat = matrix( data, [5,2], 'float32' );
 out = pdf( mat );
 console.log( 'Matrix: %s\n', out.toString() );
 

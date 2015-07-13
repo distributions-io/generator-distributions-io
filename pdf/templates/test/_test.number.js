@@ -27,7 +27,7 @@ describe( 'number pdf', function tests() {
 	});
 
 	it( 'should evaluate the <%= distribution %> probability density function', function test() {
-		assert.closeTo( pdf( 2 ), <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %>, 1e-4 );
+		assert.closeTo( pdf( 2, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> ),  , 1e-4 );
 	});
 
 });

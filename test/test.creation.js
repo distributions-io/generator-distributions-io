@@ -12,6 +12,7 @@ var path = require( 'path' ),
 var helpers = yeoman.test,
 	assert = yeoman.assert;
 
+
 // TESTS //
 
 describe( 'distributions-io generator', function tests() {

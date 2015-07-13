@@ -204,9 +204,10 @@ var Generator = yeoman.generators.Base.extend({
 				name: 'parameterDomain',
 				message: 'What values can the parameter take?',
 				choices: [
-				  'Real numbers',
-				  'Positive real numbers',
-				  'Non-negative integers'
+					'Real numbers',
+					'Positive real numbers',
+					'Non-negative real numbers',
+					'Non-negative integers'
 				]
 			},
 			{
@@ -440,6 +441,16 @@ var Generator = yeoman.generators.Base.extend({
 					s += '\t\t}\n';
 					s += '\t}';
 					parameterModules['isPositive'] = 'isPositive = require( \'validate.io-positive\' ),';
+				break;
+				case 'Non-negative real numbers':
+					s += '\tif ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
+					s += '\t\topts.' + p.name + ' = options.' + p.name + ';\n';
+					s += '\t\tif ( !isNonNegative( opts.' + p.name + ' ) ) {\n';
+					s += '\t\t\treturn new TypeError( \'pdf()::invalid option. `' + p.name + '` parameter must be a non-negative number. ';
+					s += 'Option: `\' + opts.' + p.name + ' + \'`.\' );\n';
+					s += '\t\t}\n';
+					s += '\t}';
+					parameterModules['isNonNegative'] = 'isNonNegative = require( \'validate.io-nonnegative\' ),';
 				break;
 				case 'Non-negative integers':
 					s += '\tif ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
