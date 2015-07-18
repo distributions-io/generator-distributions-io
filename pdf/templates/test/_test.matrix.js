@@ -10,11 +10,7 @@ var // Expectation library:
 	matrix = require( 'dstructs-matrix' ),
 
 	// Module to be tested:
-	pdf = require( './../lib/matrix.js' ),
-
-	// Error function:
-	PDF = require( './../lib/number.js' );
-
+	pdf = require( './../lib/matrix.js' );
 
 // VARIABLES //
 
@@ -26,19 +22,15 @@ var expect = chai.expect,
 
 describe( 'matrix pdf', function tests() {
 
-	var <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>,
+	var validationData = require( './json/matrix.json' ),
+		<%= parameters.map( function( p ) { return p.name + ' = validationData.' + p.name } ).join( ',\n\t\t' ) %>,
 		out,
 		mat,
 		d1,
-		d2,
-		i;
+		d2;
 
-	d1 = new Float64Array( 25 );
-	d2 = new Float64Array( 25 );
-	for ( i = 0; i < d1.length; i++ ) {
-		d1[ i ] = i / 5;
-		d2[ i ] = PDF( i / 5, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> );
-	}
+	d1 = new Float64Array( validationData.data );
+	d2 = new Float64Array( validationData.expected );
 
 	beforeEach( function before() {
 		mat = matrix( d1, [5,5], 'float64' );

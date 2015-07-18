@@ -20,7 +20,8 @@ var expect = chai.expect,
 
 describe( 'accessor pdf', function tests() {
 
-	var <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>;
+	var validationData = require( './json/accessor.json' ),
+		<%= parameters.map( function( p ) { return p.name + ' = validationData.' + p.name } ).join( ',\n\t\t' ) %>;
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
@@ -29,25 +30,17 @@ describe( 'accessor pdf', function tests() {
 	it( 'should evaluate the <%= distribution %> pdf using an accessor', function test() {
 		var data, actual, expected, i;
 
-		data = [
-			{'x':-3},
-			{'x':-2},
-			{'x':-1},
-			{'x':0},
-			{'x':1},
-			{'x':2},
-			{'x':3}
-		];
+		data = validationData.data.map( function( e ) {
+			return {'x': e};
+		});
 		actual = new Array( data.length );
 
 		actual = pdf( actual, data, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %>,getValue );
 
-		expected = [
-
-		];
+		expected = validationData.expected;
 
 		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ], expected[ i ], 1e-7 );
+			assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
 		}
 
 		function getValue( d ) {

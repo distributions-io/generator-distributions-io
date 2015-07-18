@@ -20,7 +20,8 @@ var expect = chai.expect,
 
 describe( 'array pdf', function tests() {
 
-	var <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>;
+	var validationData = require( './json/array.json' ),
+		<%= parameters.map( function( p ) { return p.name + ' = validationData.' + p.name } ).join( ',\n\t\t' ) %>;
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
@@ -29,32 +30,16 @@ describe( 'array pdf', function tests() {
 	it( 'should evaluate the <%= distribution %> pdf', function test() {
 		var data, actual, expected, i;
 
-		data = [
-			1e-306,
-			-1e-306,
-			1e-299,
-			-1e-299,
-			0.8,
-			-0.8,
-			1,
-			-1,
-			10,
-			-10,
-			2,
-			-2,
-			3,
-			-3
-		];
+		data = validationData.data;
+
 		actual = new Array( data.length );
 
 		actual = pdf( actual, data, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> );
 
-		expected = [
-
-		];
+		expected = validationData.expected;
 
 		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ], expected[ i ], 1e-7 );
+			assert.closeTo( actual[ i ], expected[ i ], 1e-15 );
 		}
 	});
 

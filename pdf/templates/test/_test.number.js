@@ -20,14 +20,19 @@ var expect = chai.expect,
 
 describe( 'number pdf', function tests() {
 
-	var <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>;
+	var	validationData = require( './json/accessor.json' ),
+		data = validationData.data,
+		expected = validationData.expected,
+		<%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>;
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
 	});
 
 	it( 'should evaluate the <%= distribution %> probability density function', function test() {
-		assert.closeTo( pdf( 2, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> ),  , 1e-4 );
+		for ( var i = 0; i < data.length; i++ ) {
+			assert.closeTo( pdf( data[ i ], <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> ), expected[ i ] , 1e-14 );
+		}
 	});
 
 });

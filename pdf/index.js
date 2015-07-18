@@ -160,6 +160,12 @@ var Generator = yeoman.generators.Base.extend({
 				'name': 'distribution',
 				'message': 'Name of the distribution:',
 				'default': 'Distribution.'
+			},
+			{
+				'type': 'input',
+				'name': 'rName',
+				'message': 'Name of corresponding R function:',
+				'default': 'd<distribution>'
 			}
 		];
 
@@ -171,6 +177,7 @@ var Generator = yeoman.generators.Base.extend({
 			this.distribution = answers.distribution;
 			this.git = answers.git;
 			this.repo = answers.repo;
+			this.rName = answers.rName;
 			next();
 		}.bind( this ) );
 
@@ -440,7 +447,7 @@ var Generator = yeoman.generators.Base.extend({
 					s += 'Option: `\' + opts.' + p.name + ' + \'`.\' );\n';
 					s += '\t\t}\n';
 					s += '\t}';
-					parameterModules['isPositive'] = 'isPositive = require( \'validate.io-positive\' ),';
+					parameterModules['isPositive'] = 'isPositive = require( \'validate.io-positive-primitive\' ),';
 				break;
 				case 'Non-negative real numbers':
 					s += '\tif ( options.hasOwnProperty( \'' + p.name + '\' ) ) {\n';
@@ -494,7 +501,8 @@ var Generator = yeoman.generators.Base.extend({
 		var context = {
 				'name': this.moduleName,
 				'distribution': this.distribution,
-				'parameters': this.parameters
+				'parameters': this.parameters,
+				'rName': this.rName
 			};
 
 		context[ 'parameterTests' ] = this.parameters.map( function(p) {
@@ -546,6 +554,7 @@ var Generator = yeoman.generators.Base.extend({
 			return s;
 		}).join( '\n' );
 
+		// JavaScript files
 		this.fs.copyTpl(
 			this.templatePath( 'test/_test.js' ),
 			this.destinationPath( 'test/test.js' ),
@@ -589,6 +598,45 @@ var Generator = yeoman.generators.Base.extend({
 		this.fs.copyTpl(
 			this.templatePath( 'test/_test.validate.js' ),
 			this.destinationPath( 'test/test.validate.js' ),
+			context
+		);
+
+		// R files
+		this.copy( 'test/_runner.R', 'test/runner.R' );
+
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.accessor.R' ),
+			this.destinationPath( 'test/test.accessor.R' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.array.R' ),
+			this.destinationPath( 'test/test.array.R' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.deepset.R' ),
+			this.destinationPath( 'test/test.deepset.R' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.matrix.R' ),
+			this.destinationPath( 'test/test.matrix.R' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.number.R' ),
+			this.destinationPath( 'test/test.number.R' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.partial.R' ),
+			this.destinationPath( 'test/test.partial.R' ),
+			context
+		);
+		this.fs.copyTpl(
+			this.templatePath( 'test/_test.typedarray.R' ),
+			this.destinationPath( 'test/test.typedarray.R' ),
 			context
 		);
 	}, // end METHOD test()
