@@ -9,6 +9,9 @@ var // Expectation library:
 	// Matrix data structure:
 	matrix = require( 'dstructs-matrix' ),
 
+	// Check whether an element is infinite
+	isinf = require( 'compute-isinf' ),
+
 	// Module to be tested:
 	pdf = require( './../lib/matrix.js' );
 
@@ -22,7 +25,7 @@ var expect = chai.expect,
 
 describe( 'matrix pdf', function tests() {
 
-	var validationData = require( './json/matrix.json' ),
+	var validationData = require( './fixtures/matrix.json' ),
 		<%= parameters.map( function( p ) { return p.name + ' = validationData.' + p.name } ).join( ',\n\t\t' ) %>,
 		out,
 		mat,
@@ -30,7 +33,9 @@ describe( 'matrix pdf', function tests() {
 		d2;
 
 	d1 = new Float64Array( validationData.data );
-	d2 = new Float64Array( validationData.expected );
+	d2 = new Float64Array( validationData.expected.map( function( d ) {
+		return d === 'Inf' ? Infinity : d;
+	}) );
 
 	beforeEach( function before() {
 		mat = matrix( d1, [5,5], 'float64' );
@@ -49,12 +54,17 @@ describe( 'matrix pdf', function tests() {
 	});
 
 	it( 'should evaluate the <%= distribution %> pdf for each matrix element', function test() {
-		var actual;
+		var actual, i;
 
 		actual = matrix( [5,5], 'float64' );
 		actual = pdf( actual, mat, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %> );
 
-		assert.deepEqual( actual.data, out.data );
+
+		for ( i = 0; i < actual.length; i++ ) {
+			if ( !( isinf( actual.data[ i ] ) === 1 && isinf( out.data[ i ] ) === 1 ) ) {
+				assert.closeTo( actual.data[ i ], out.data[ i ], 1e-14 );
+			}
+		}
 	});
 
 	it( 'should return an empty matrix if provided an empty matrix', function test() {

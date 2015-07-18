@@ -6,6 +6,9 @@
 var // Expectation library:
 	chai = require( 'chai' ),
 
+	// Check whether an element is infinite
+	isinf = require( 'compute-isinf' ),
+
 	// Module to be tested:
 	pdf = require( './../lib/deepset.js' );
 
@@ -20,7 +23,7 @@ var expect = chai.expect,
 
 describe( 'deepset pdf', function tests() {
 
-	var validationData = require( './json/deepset.json' ),
+	var validationData = require( './fixtures/deepset.json' ),
 		<%= parameters.map( function( p ) { return p.name + ' = validationData.' + p.name } ).join( ',\n\t\t' ) %>;
 
 	it( 'should export a function', function test() {
@@ -36,12 +39,18 @@ describe( 'deepset pdf', function tests() {
 
 		data = pdf( data, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %>, 'x' );
 
-		expected = validationData.expected.map( function( e ) {
-			return {'x': e};
-		});
+		expected = validationData.expected
+			.map( function( d ) {
+				return d === 'Inf' ? Infinity : d;
+			})
+			.map( function( d ) {
+				return {'x': d};
+			});
 
 		for ( i = 0; i < data.length; i++ ) {
-			assert.closeTo( data[ i ].x, expected[ i ].x, 1e-14 );
+			if ( !( isinf( data[ i ].x ) === 1 && isinf( expected[ i ].x) === 1 ) ) {
+				assert.closeTo( data[ i ].x, expected[ i ].x, 1e-14 );
+			}
 		}
 
 		// Custom separator...
@@ -50,12 +59,18 @@ describe( 'deepset pdf', function tests() {
 		});
 
 		data = pdf( data, <%= parameters.map( function( p ) { return p.name} ).join( ', ' ) %>, 'x/1', '/' );
-		expected = validationData.expected.map( function( e ) {
-			return {'x': [9, e]};
-		});
+		expected = validationData.expected
+			.map( function( d ) {
+				return d === 'Inf' ? Infinity : d;
+			})
+			.map( function( e ) {
+				return {'x': [9, e]};
+			});
 
 		for ( i = 0; i < data.length; i++ ) {
-			assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-14, 'custom separator' );
+			if ( !( isinf( data[ i ].x[ 1 ] ) === 1 && isinf( expected[ i ].x[ 1 ] ) === 1 ) ) {
+				assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-14, 'custom separator' );
+			}
 		}
 	});
 

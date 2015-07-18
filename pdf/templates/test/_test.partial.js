@@ -6,6 +6,9 @@
 var // Expectation library:
 	chai = require( 'chai' ),
 
+	// Check whether an element is infinite
+	isinf = require( 'compute-isinf' ),
+
 	// Module to be tested:
 	partial = require( './../lib/partial.js' );
 
@@ -20,7 +23,7 @@ var expect = chai.expect,
 
 describe( 'number pdf', function tests() {
 
-	var	validationData = require( './json/accessor.json' ),
+	var	validationData = require( './fixtures/partial.json' ),
 		data = validationData.data,
 		expected = validationData.expected,
 		<%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>;

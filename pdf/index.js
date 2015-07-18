@@ -258,6 +258,7 @@ var Generator = yeoman.generators.Base.extend({
 		mkdirp( 'examples' );
 		mkdirp( 'lib' );
 		mkdirp( 'test' );
+		mkdirp( 'test/fixtures' );
 		mkdirp( 'docs/img' );
 	}, // end METHOD mkdirs()
 
@@ -602,41 +603,41 @@ var Generator = yeoman.generators.Base.extend({
 		);
 
 		// R files
-		this.copy( 'test/_runner.R', 'test/runner.R' );
+		this.copy( 'test/fixtures/_runner.R', 'test/fixtures/runner.R' );
 
 		this.fs.copyTpl(
-			this.templatePath( 'test/_test.accessor.R' ),
-			this.destinationPath( 'test/test.accessor.R' ),
+			this.templatePath( 'test/fixtures/_test.accessor.R' ),
+			this.destinationPath( 'test/fixtures/test.accessor.R' ),
 			context
 		);
 		this.fs.copyTpl(
-			this.templatePath( 'test/_test.array.R' ),
-			this.destinationPath( 'test/test.array.R' ),
+			this.templatePath( 'test/fixtures/_test.array.R' ),
+			this.destinationPath( 'test/fixtures/test.array.R' ),
 			context
 		);
 		this.fs.copyTpl(
-			this.templatePath( 'test/_test.deepset.R' ),
-			this.destinationPath( 'test/test.deepset.R' ),
+			this.templatePath( 'test/fixtures/_test.deepset.R' ),
+			this.destinationPath( 'test/fixtures/test.deepset.R' ),
 			context
 		);
 		this.fs.copyTpl(
-			this.templatePath( 'test/_test.matrix.R' ),
-			this.destinationPath( 'test/test.matrix.R' ),
+			this.templatePath( 'test/fixtures/_test.matrix.R' ),
+			this.destinationPath( 'test/fixtures/test.matrix.R' ),
 			context
 		);
 		this.fs.copyTpl(
-			this.templatePath( 'test/_test.number.R' ),
-			this.destinationPath( 'test/test.number.R' ),
+			this.templatePath( 'test/fixtures/_test.number.R' ),
+			this.destinationPath( 'test/fixtures/test.number.R' ),
 			context
 		);
 		this.fs.copyTpl(
-			this.templatePath( 'test/_test.partial.R' ),
-			this.destinationPath( 'test/test.partial.R' ),
+			this.templatePath( 'test/fixtures/_test.partial.R' ),
+			this.destinationPath( 'test/fixtures/test.partial.R' ),
 			context
 		);
 		this.fs.copyTpl(
-			this.templatePath( 'test/_test.typedarray.R' ),
-			this.destinationPath( 'test/test.typedarray.R' ),
+			this.templatePath( 'test/fixtures/_test.typedarray.R' ),
+			this.destinationPath( 'test/fixtures/test.typedarray.R' ),
 			context
 		);
 	}, // end METHOD test()

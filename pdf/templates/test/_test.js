@@ -9,6 +9,9 @@ var // Expectation library:
 	// Matrix data structure:
 	matrix = require( 'dstructs-matrix' ),
 
+	// Check whether an element is infinite
+	isinf = require( 'compute-isinf' ),
+
 	// Validate a value is NaN:
 	isnan = require( 'validate.io-nan' ),
 
@@ -130,14 +133,16 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 
 	it( 'should evaluate the <%= distribution %> pdf when provided a plain array', function test() {
 
-		var validationData = require( './json/array.json' ),
+		var validationData = require( './fixtures/array.json' ),
 			data,
 			actual,
 			expected,
 			i;
 
 		data = validationData.data;
-		expected = validationData.expected;
+		expected = validationData.expected.map( function( d ) {
+			return d === 'Inf' ? Infinity : d;
+		});
 
 		actual = pdf( data, {
 			<%- parameters.map( function( p ) {
@@ -147,9 +152,10 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.notEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+			if ( !( isinf( actual[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+				assert.closeTo( actual[ i ], expected[ i ], 1e-15 );
+			}
 		}
-
 		// Mutate...
 		actual = pdf( data, {
 			'copy': false,
@@ -159,21 +165,25 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		});
 		assert.strictEqual( actual, data );
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( data[ i ], expected[ i ], 1e-14 );
+		for ( i = 0; i < data.length; i++ ) {
+			if ( !( isinf( data[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+				assert.closeTo( data[ i ], expected[ i ], 1e-15 );
+			}
 		}
 	});
 
 	it( 'should evaluate the <%= distribution %> pdf when provided a typed array', function test() {
-		var validationData = require( './json/typedarray.json' ),
+		var validationData = require( './fixtures/typedarray.json' ),
 			data,
 			actual,
 			expected,
 			i;
 
-		data = new Float64Array( validationData.data );
+		data = new Float32Array( validationData.data );
 
-		expected = new Float64Array( validationData.expected );
+		expected = new Float64Array( validationData.expected.map( function( d ) {
+			return d === 'Inf' ? Infinity : d;
+		}) );
 
 		actual = pdf( data, {
 			<%- parameters.map( function( p ) {
@@ -193,23 +203,27 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 				return '\'' + p.name + '\': validationData.' + p.name
 			}).join( ',\n\t\t') %>
 		});
-		expected = new Int8Array([
-
-		]);
+		expected = new Float32Array( validationData.expected.map( function( d ) {
+			return d === 'Inf' ? Infinity : d;
+		}) );
 		assert.strictEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( data[ i ], expected[ i ], 1e-14 );
+			if ( !( isinf( actual[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+			}
 		}
 	});
 
 	it( 'should evaluate the <%= distribution %> pdf element-wise and return an array of a specific type', function test() {
-		var data, actual, expected;
+		var data, actual, expected, i;
 
-		var validationData = require( './json/array.json' ),
+		var validationData = require( './fixtures/array.json' ),
 			data = validationData.data,
 			actual,
-			expected = new Int8Array( validationData.expected );
+			expected = new Int8Array( validationData.expected.map( function( d ) {
+				return d === 'Inf' ? Infinity : d;
+			}) );
 
 		actual = pdf( data, {
 			'dtype': 'int8',
@@ -220,11 +234,16 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 
 		assert.notEqual( actual, data );
 		assert.strictEqual( actual.BYTES_PER_ELEMENT, 1 );
-		assert.deepEqual( actual, expected );
+
+		for ( i = 0; i < actual.length; i++ ) {
+			if ( !( isinf( actual[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+			}
+		}
 	});
 
 	it( 'should evaluate the <%= distribution %> pdf element-wise using an accessor', function test() {
-		var validationData = require( './json/accessor.json' ),
+		var validationData = require( './fixtures/accessor.json' ),
 			data,
 			actual,
 			expected,
@@ -234,7 +253,9 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 			return [ i, e ];
 		});
 
-		expected = validationData.expected;
+		expected = validationData.expected.map( function( d ) {
+			return d === 'Inf' ? Infinity : d;
+		});
 
 		actual = pdf( data, {
 			'accessor': getValue,
@@ -245,7 +266,9 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.notEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+			if ( !( isinf( actual[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+			}
 		}
 
 		// Mutate:
@@ -259,7 +282,9 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.strictEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( data[ i ], expected[ i ], 1e-14 );
+			if ( !( isinf( actual[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+			}
 		}
 
 		function getValue( d ) {
@@ -268,7 +293,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 	});
 
 	it( 'should evaluate the <%= distribution %> pdf element-wise and deep set', function test() {
-		var validationData = require( './json/deepset.json' ),
+		var validationData = require( './fixtures/deepset.json' ),
 				data,
 				actual,
 				expected,
@@ -285,14 +310,20 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 			}).join( ',\n\t\t') %>
 		});
 
-		expected = validationData.expected.map( function( e ) {
-			return {'x': [ i, e ]};
-		});
+		expected = validationData.expected
+			.map( function( d ) {
+				return d === 'Inf' ? Infinity : d;
+			})
+			.map( function( e ) {
+				return {'x': [ i, e ]};
+			});
 
 		assert.strictEqual( actual, data );
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-7 );
+		for ( i = 0; i < data.length; i++ ) {
+			if ( !( isinf( data[ i ].x ) === 1 && isinf( expected[ i ].x) === 1 ) ) {
+				assert.closeTo( data[ i ].x, expected[ i ].x, 1e-14 );
+			}
 		}
 
 		// Specify a path with a custom separator...
@@ -308,13 +339,15 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		});
 		assert.strictEqual( actual, data );
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-7 );
+		for ( i = 0; i < data.length; i++ ) {
+			if ( !( isinf( data[ i ].x[ 1 ] ) === 1 && isinf( expected[ i ].x[ 1 ] ) === 1 ) ) {
+				assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-14, 'custom separator' );
+			}
 		}
 	});
 
 	it( 'should evaluate the <%= distribution %> pdf element-wise when provided a matrix', function test() {
-		var validationData = require( './json/matrix.json' ),
+		var validationData = require( './fixtures/matrix.json' ),
 			mat,
 			out,
 			d1,
@@ -322,7 +355,9 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 			i;
 
 		d1 = new Float64Array( validationData.data );
-		d2 = new Float64Array( validationData.expected );
+		d2 = new Float64Array( validationData.expected.map( function( d ) {
+			return d === 'Inf' ? Infinity : d;
+		}) );
 
 		mat = matrix( d1, [5,5], 'float64' );
 		out = pdf( mat, {
@@ -343,13 +378,16 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 			}).join( ',\n\t\t') %>
 		});
 		assert.strictEqual( mat, out );
+
 		for ( i = 0; i < out.length; i++ ) {
-			assert.closeTo( mat.data[ i ], d2[ i], 1e-14 );
+			if ( !( isinf( out.data[ i ] ) === 1 && isinf( d2[ i ] ) === 1 ) ) {
+				assert.closeTo( out.data[ i ], d2[ i ], 1e-14 );
+			}
 		}
 	});
 
 	it( 'should evaluate the <%= distribution %> pdf element-wise and return a matrix of a specific type', function test() {
-		var validationData = require( './json/matrix.json' ),
+		var validationData = require( './fixtures/matrix.json' ),
 			mat,
 			out,
 			d1,
@@ -368,8 +406,11 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		});
 
 		assert.strictEqual( out.dtype, 'float32' );
+
 		for ( i = 0; i < out.length; i++ ) {
-			assert.closeTo( out.data[ i ], d2[ i], 1e-14 );
+			if ( !( isinf( out.data[ i ] ) === 1 && isinf( d2[ i ] ) === 1 ) ) {
+				assert.closeTo( out.data[ i ], d2[ i ], 1e-14 );
+			}
 		}
 	});
 

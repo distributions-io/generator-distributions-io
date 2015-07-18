@@ -3,7 +3,7 @@ library( jsonlite );
 
 
 <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( '\n' ) %>
-x = seq( -1000, 1000, 0.5 )
+x = c( -5, -2.5, 0, 2.5, 5 )
 y = <%= rName %>( x, <%= parameters.map( function( p ) { return p.name } ).join( ',' ) %> )
 
 cat( y, sep = ",\n" )
@@ -14,4 +14,4 @@ data = list(
 	expected = y
 )
 
-write( toJSON( data, digits = 16, auto_unbox = TRUE ), "./test/json/typedarray.json" )
+write( toJSON( data, digits = 16, auto_unbox = TRUE ), "./test/fixtures/number.json" )

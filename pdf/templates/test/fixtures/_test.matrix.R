@@ -1,9 +1,8 @@
 options( digits = 16 );
 library( jsonlite );
 
-
 <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( '\n' ) %>
-x = seq( -1000, 1000, 0.5 )
+x = 0:24
 y = <%= rName %>( x, <%= parameters.map( function( p ) { return p.name } ).join( ',' ) %> )
 
 cat( y, sep = ",\n" )
@@ -14,4 +13,5 @@ data = list(
 	expected = y
 )
 
-write( toJSON( data, digits = 16, auto_unbox = TRUE ), "./test/json/deepset.json" )
+
+write( toJSON( data, digits = 16, auto_unbox = TRUE ), "./test/fixtures/matrix.json" )
