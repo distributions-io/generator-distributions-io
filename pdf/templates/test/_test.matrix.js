@@ -9,8 +9,8 @@ var // Expectation library:
 	// Matrix data structure:
 	matrix = require( 'dstructs-matrix' ),
 
-	// Check whether an element is infinite
-	isinf = require( 'compute-isinf' ),
+	// Check whether an element is a finite number
+	isFiniteNumber = require( 'validate.io-finite' ),
 
 	// Module to be tested:
 	pdf = require( './../lib/matrix.js' );
@@ -61,7 +61,7 @@ describe( 'matrix pdf', function tests() {
 
 
 		for ( i = 0; i < actual.length; i++ ) {
-			if ( !( isinf( actual.data[ i ] ) === 1 && isinf( out.data[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( actual.data[ i ] ) && isFiniteNumber( out.data[ i ] ) ) {
 				assert.closeTo( actual.data[ i ], out.data[ i ], 1e-14 );
 			}
 		}

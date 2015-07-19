@@ -9,8 +9,8 @@ var // Expectation library:
 	// Matrix data structure:
 	matrix = require( 'dstructs-matrix' ),
 
-	// Check whether an element is infinite
-	isinf = require( 'compute-isinf' ),
+	// Check whether an element is a finite number
+	isFiniteNumber = require( 'validate.io-finite' ),
 
 	// Validate a value is NaN:
 	isnan = require( 'validate.io-nan' ),
@@ -128,7 +128,24 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 	});
 
 	it( 'should compute the <%= distribution %> pdf when provided a number', function test() {
-		assert.strictEqual( pdf( -1 ), 0 );
+		var	validationData = require( './fixtures/number.json' ),
+			data = validationData.data,
+			expected = validationData.expected.map( function( d ) {
+				return d === 'Inf' ? Infinity : d;
+			}),
+			<%= parameters.map( function( p ) { return p.name + ' = validationData.' + p.name } ).join( ',\n\t\t' ) %>;
+
+			var actual;
+			for ( var i = 0; i < data.length; i++ ) {
+				actual =  pdf( data[ i ], {
+					<%- parameters.map( function( p ) {
+						return '\'' + p.name + '\': validationData.' + p.name
+					}).join( ',\n\t\t') %>
+				});
+				if ( isFiniteNumber( actual ) && isFiniteNumber( expected[ i ] ) ) {
+					assert.closeTo( actual, expected[ i ] , 1e-14 );
+				}
+			}
 	});
 
 	it( 'should evaluate the <%= distribution %> pdf when provided a plain array', function test() {
@@ -152,7 +169,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.notEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
-			if ( !( isinf( actual[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
 				assert.closeTo( actual[ i ], expected[ i ], 1e-15 );
 			}
 		}
@@ -166,7 +183,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.strictEqual( actual, data );
 
 		for ( i = 0; i < data.length; i++ ) {
-			if ( !( isinf( data[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( data[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
 				assert.closeTo( data[ i ], expected[ i ], 1e-15 );
 			}
 		}
@@ -193,7 +210,9 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.notEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
+				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+			}
 		}
 
 		// Mutate:
@@ -209,7 +228,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.strictEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
-			if ( !( isinf( actual[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
 				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
 			}
 		}
@@ -236,7 +255,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.strictEqual( actual.BYTES_PER_ELEMENT, 1 );
 
 		for ( i = 0; i < actual.length; i++ ) {
-			if ( !( isinf( actual[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
 				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
 			}
 		}
@@ -266,7 +285,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.notEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
-			if ( !( isinf( actual[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
 				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
 			}
 		}
@@ -282,7 +301,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.strictEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
-			if ( !( isinf( actual[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
 				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
 			}
 		}
@@ -321,8 +340,8 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.strictEqual( actual, data );
 
 		for ( i = 0; i < data.length; i++ ) {
-			if ( !( isinf( data[ i ].x ) === 1 && isinf( expected[ i ].x) === 1 ) ) {
-				assert.closeTo( data[ i ].x, expected[ i ].x, 1e-14 );
+			if ( isFiniteNumber( data[ i ].x[ 1 ] ) && isFiniteNumber( expected[ i ].x[ 1 ] ) ) {
+				assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-14 );
 			}
 		}
 
@@ -340,7 +359,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.strictEqual( actual, data );
 
 		for ( i = 0; i < data.length; i++ ) {
-			if ( !( isinf( data[ i ].x[ 1 ] ) === 1 && isinf( expected[ i ].x[ 1 ] ) === 1 ) ) {
+			if ( isFiniteNumber( data[ i ].x[ 1 ] ) && isFiniteNumber( expected[ i ].x[ 1 ] ) ) {
 				assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-14, 'custom separator' );
 			}
 		}
@@ -380,7 +399,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.strictEqual( mat, out );
 
 		for ( i = 0; i < out.length; i++ ) {
-			if ( !( isinf( out.data[ i ] ) === 1 && isinf( d2[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( out.data[ i ] ) && isFiniteNumber( d2[ i ] ) ) {
 				assert.closeTo( out.data[ i ], d2[ i ], 1e-14 );
 			}
 		}
@@ -408,7 +427,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		assert.strictEqual( out.dtype, 'float32' );
 
 		for ( i = 0; i < out.length; i++ ) {
-			if ( !( isinf( out.data[ i ] ) === 1 && isinf( d2[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( out.data[ i ] ) && isFiniteNumber( d2[ i ] ) ) {
 				assert.closeTo( out.data[ i ], d2[ i ], 1e-14 );
 			}
 		}

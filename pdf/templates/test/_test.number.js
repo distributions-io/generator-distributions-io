@@ -6,8 +6,8 @@
 var // Expectation library:
 	chai = require( 'chai' ),
 
-	// Check whether an element is infinite
-	isinf = require( 'compute-isinf' ),
+	// Check whether an element is a finite number
+	isFiniteNumber = require( 'validate.io-finite' ),
 
 	// Module to be tested:
 	pdf = require( './../lib/number.js' );
@@ -28,7 +28,7 @@ describe( 'number pdf', function tests() {
 		expected = validationData.expected.map( function( d ) {
 			return d === 'Inf' ? Infinity : d;
 		}),
-		<%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>;
+		<%= parameters.map( function( p ) { return p.name + ' = validationData.' + p.name } ).join( ',\n\t\t' ) %>;
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
@@ -38,11 +38,10 @@ describe( 'number pdf', function tests() {
 		var actual;
 		for ( var i = 0; i < data.length; i++ ) {
 			actual =  pdf( data[ i ], <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> );
-			if ( !( isinf( actual ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( actual ) && isFiniteNumber( expected[ i ] ) ) {
 				assert.closeTo( actual, expected[ i ] , 1e-14 );
 			}
 		}
-
 	});
 
 });

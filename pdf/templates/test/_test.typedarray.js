@@ -6,8 +6,8 @@
 var // Expectation library:
 	chai = require( 'chai' ),
 
-	// Check whether an element is infinite
-	isinf = require( 'compute-isinf' ),
+	// Check whether an element is a finite number
+	isFiniteNumber = require( 'validate.io-finite' ),
 
 	// Module to be tested:
 	pdf = require( './../lib/typedarray.js' );
@@ -42,7 +42,7 @@ describe( 'typed-array pdf', function tests() {
 		}) );
 
 		for ( i = 0; i < actual.length; i++ ) {
-			if ( !( isinf( actual[ i ] ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( actual[ i ] )&& isFiniteNumber( expected[ i ] ) ) {
 				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
 			}
 		}

@@ -6,8 +6,8 @@
 var // Expectation library:
 	chai = require( 'chai' ),
 
-	// Check whether an element is infinite
-	isinf = require( 'compute-isinf' ),
+	// Check whether an element is a finite number
+	isFiniteNumber = require( 'validate.io-finite' ),
 
 	// Module to be tested:
 	partial = require( './../lib/partial.js' );
@@ -21,12 +21,14 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'number pdf', function tests() {
+describe( 'partial pdf', function tests() {
 
 	var	validationData = require( './fixtures/partial.json' ),
 		data = validationData.data,
-		expected = validationData.expected,
-		<%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( ',\n\t\t' ) %>;
+		expected = validationData.expected.map( function( d ) {
+			return d === 'Inf' ? Infinity : d;
+		}),
+		<%= parameters.map( function( p ) { return p.name + ' = validationData.' + p.name } ).join( ',\n\t\t' ) %>;
 
 	it( 'should export a function', function test() {
 		expect( partial ).to.be.a( 'function' );
@@ -43,7 +45,7 @@ describe( 'number pdf', function tests() {
 		pdf = partial(  <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> );
 		for ( var i = 0; i < data.length; i++ ) {
 			actual = pdf( data[ i ] );
-			if ( !( isinf( actual ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+			if ( isFiniteNumber( actual ) && isFiniteNumber( expected[ i ] ) ) {
 				assert.closeTo( actual, expected[ i ] , 1e-14 );
 			}
 		}

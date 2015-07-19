@@ -537,6 +537,20 @@ var Generator = yeoman.generators.Base.extend({
 					s += '\t\t}\n';
 					s += '\t});';
 				break;
+				case 'Non-negative real numbers':
+					s += 'it( \'should return an error if provided a `' + p.name + '` parameter which is not a non-negative number\', function test() {\n';
+					s += '\t\tvar values, err;\n';
+					s += '\t\t values = [\n';
+					s += '\t\t\t-2,\n\t\t\t\'5\',\n\t\t\t[],\n\t\t\ttrue,\n\t\t\tundefined,\n\t\t\tnull,\n\t\t\tNaN,\n\t\t\tfunction(){},\n\t\t\t{}\n';
+					s += '\t\t];\n\n';
+					s += '\t\tfor ( var i = 0; i < values.length; i++ ) {\n';
+					s += '\t\t\terr = validate( {}, {\n';
+					s += '\t\t\t\t\'' + p.name + '\': values[ i ]\n';
+					s += '\t\t\t});\n';
+					s += '\t\t\tassert.isTrue( err instanceof TypeError );\n';
+					s += '\t\t}\n';
+					s += '\t});';
+				break;
 				case 'Non-negative integers':
 					s += 'it( \'should return an error if provided a `' + p.name + '` parameter which is not a non-negative integer\', function test() {\n';
 					s += '\t\tvar values, err;\n';
