@@ -23,7 +23,7 @@ var expect = chai.expect,
 
 describe( 'array pdf', function tests() {
 
-	var validationData = require( './json/array.json' ),
+	var validationData = require( './fixtures/array.json' ),
 		<%= parameters.map( function( p ) { return p.name + ' = validationData.' + p.name } ).join( ',\n\t\t' ) %>;
 
 	it( 'should export a function', function test() {

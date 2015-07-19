@@ -35,9 +35,14 @@ describe( 'number pdf', function tests() {
 	});
 
 	it( 'should evaluate the <%= distribution %> probability density function', function test() {
+		var actual;
 		for ( var i = 0; i < data.length; i++ ) {
-			assert.closeTo( pdf( data[ i ], <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> ), expected[ i ] , 1e-14 );
+			actual =  pdf( data[ i ], <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> );
+			if ( !( isinf( actual ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+				assert.closeTo( actual, expected[ i ] , 1e-14 );
+			}
 		}
+
 	});
 
 });

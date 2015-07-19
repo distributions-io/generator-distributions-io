@@ -22,7 +22,7 @@ var expect = chai.expect,
 // TESTS //
 
 describe( 'typed-array pdf', function tests() {
-	var validationData = require( './json/typedarray.json' ),
+	var validationData = require( './fixtures/typedarray.json' ),
 		<%= parameters.map( function( p ) { return p.name + ' = validationData.' + p.name } ).join( ',\n\t\t' ) %>;
 
 	it( 'should export a function', function test() {

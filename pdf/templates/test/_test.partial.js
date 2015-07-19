@@ -39,11 +39,16 @@ describe( 'number pdf', function tests() {
 	});
 
 	it( 'should return a function which evaluates the probability density function', function test() {
-		var pdf;
+		var pdf, actual;
 		pdf = partial(  <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> );
 		for ( var i = 0; i < data.length; i++ ) {
-			assert.closeTo( pdf( data[ i ] ), expected[ i ] , 1e-14 );
+			actual = pdf( data[ i ] );
+			if ( !( isinf( actual ) === 1 && isinf( expected[ i ] ) === 1 ) ) {
+				assert.closeTo( actual, expected[ i ] , 1e-14 );
+			}
 		}
+
+
 	});
 
 });
