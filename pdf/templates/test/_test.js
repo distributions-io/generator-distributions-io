@@ -156,7 +156,8 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 			expected,
 			i;
 
-		data = validationData.data;
+		// make copy of data array to prevent mutation of validationData
+		data = validationData.data.slice();
 		expected = validationData.expected.map( function( d ) {
 			return d === 'Inf' ? Infinity : d;
 		});
@@ -235,24 +236,27 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 	});
 
 	it( 'should evaluate the <%= distribution %> pdf element-wise and return an array of a specific type', function test() {
-		var data, actual, expected, i;
 
 		var validationData = require( './fixtures/array.json' ),
-			data = validationData.data,
+			// make copy of data array to prevent mutation of validationData
+			data = validationData.data.slice(),
 			actual,
-			expected = new Int8Array( validationData.expected.map( function( d ) {
-				return d === 'Inf' ? Infinity : d;
-			}) );
+			expected,
+			i;
+
+		expected = new Float32Array( validationData.expected.map( function( d ) {
+			return d === 'Inf' ? Infinity : d;
+		}) );
 
 		actual = pdf( data, {
-			'dtype': 'int8',
+			'dtype': 'float32',
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
 			}).join( ',\n\t\t') %>
 		});
 
 		assert.notEqual( actual, data );
-		assert.strictEqual( actual.BYTES_PER_ELEMENT, 1 );
+		assert.strictEqual( actual.BYTES_PER_ELEMENT, 4 );
 
 		for ( i = 0; i < actual.length; i++ ) {
 			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
@@ -386,7 +390,9 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-pdf', function tests(
 		});
 
 		for ( i = 0; i < out.length; i++ ) {
-			assert.closeTo( out.data[ i ], d2[ i], 1e-14 );
+			if ( isFiniteNumber( out.data[ i ] ) && isFiniteNumber( d2[ i ] ) ) {
+				assert.closeTo( out.data[ i ], d2[ i], 1e-14 );
+			}
 		}
 
 		// Mutate...
