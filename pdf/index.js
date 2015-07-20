@@ -306,12 +306,12 @@ var Generator = yeoman.generators.Base.extend({
 	*/
 	package: function() {
 		var context = {
-				'name': this.moduleName,
-				'repo': this.repo,
-				'author': this.author,
-				'email': this.email,
-				'distribution': this.distribution
-			};
+			'name': this.moduleName,
+			'repo': this.repo,
+			'author': this.author,
+			'email': this.email,
+			'distribution': this.distribution
+		};
 
 		this.fs.copyTpl(
 			this.templatePath( '_package.json' ),
