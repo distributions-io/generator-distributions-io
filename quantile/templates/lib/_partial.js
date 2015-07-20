@@ -23,7 +23,9 @@ function partial( <%= parameterArguments %> ) {
 	* @returns {Number} evaluated quantile function
 	*/
 	return function quantile( p ) {
-
+		if ( p !== p || p < 0 || p > 1 ) {
+			return NaN;
+		}
 	};
 } // end FUNCTION partial()
 

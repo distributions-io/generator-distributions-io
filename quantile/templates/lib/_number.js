@@ -14,7 +14,9 @@
 * @returns {Number} evaluated quantile function
 */
 function quantile( p, <%= parameterArguments %> ) {
-
+	if ( p !== p || p < 0 || p > 1 ) {
+		return NaN;
+	}
 } // end FUNCTION quantile()
 
 

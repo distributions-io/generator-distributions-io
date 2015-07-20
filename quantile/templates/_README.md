@@ -220,13 +220,13 @@ bool = ( mat === out );
 *	For any `p` outside the interval `[0,1]`, the the evaluated [quantile function](https://en.wikipedia.org/wiki/Quantile_function) is `NaN`.
 
 	```javascript
-		var out;
+	var out;
 
-		out = quantile( 1.1 );
-		// returns NaN
+	out = quantile( 1.1 );
+	// returns NaN
 
-		out = quantile( -0.1 );
-		// returns NaN
+	out = quantile( -0.1 );
+	// returns NaN
 	```
 
 *	If an element is __not__ a numeric value, the evaluated [quantile function](https://en.wikipedia.org/wiki/Quantile_function) is `NaN`.

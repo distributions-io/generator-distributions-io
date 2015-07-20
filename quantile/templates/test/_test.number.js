@@ -9,6 +9,9 @@ var // Expectation library:
 	// Check whether an element is a finite number
 	isFiniteNumber = require( 'validate.io-finite' ),
 
+	// Check whether an element is `NaN`
+	isnan = require( 'validate.io-nan' ),	
+
 	// Module to be tested:
 	quantile = require( './../lib/number.js' );
 
@@ -48,6 +51,15 @@ describe( 'number quantile', function tests() {
 				assert.closeTo( actual, expected[ i ] , 1e-12 );
 			}
 		}
+	});
+
+	it( 'should return `NaN` if provided `NaN` as input', function test() {
+		assert.isTrue( isnan( quantile( NaN, <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> ) ) );
+	});
+
+	it( 'should return `NaN` if provided a number outside [0,1]', function test() {
+		assert.isTrue( isnan( quantile( 1.1, <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> ) ) );
+		assert.isTrue( isnan( quantile( -0.1, <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> ) ) );
 	});
 
 });
