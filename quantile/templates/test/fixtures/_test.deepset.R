@@ -1,9 +1,9 @@
-options( digits = 16 );
-library( jsonlite );
+options( digits = 16 )
+library( jsonlite )
 
 
 <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( '\n' ) %>
-probs = seq( 0, 1, 0.1 )
+probs = seq( 0, 1, 0.01 )
 y = <%= rName %>( probs, <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> )
 
 cat( y, sep = ",\n" )

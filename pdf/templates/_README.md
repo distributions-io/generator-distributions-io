@@ -96,7 +96,7 @@ A [<%= distribution %>](https://en.wikipedia.org/wiki/<%= distribution %>_distri
 var x = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
 
 var out = pdf( x, {
-	<%- parameters.map( function( p ) { return '\'' + p.name + '\': ' + Math.round( Math.random() * 10 ) + ',' } ).join( '\n\t' ) %>
+	<%- parameters.map( function( p ) { return '\'' + p.name + '\': ' + Math.round( Math.random() * 10 ); } ).join( ',\n\t' ) %>
 });
 // returns [...]
 ```

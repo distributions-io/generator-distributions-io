@@ -229,7 +229,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 
 		for ( i = 0; i < actual.length; i++ ) {
 			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
-				assert.closeTo( actual[ i ], expected[ i ], 1e-12 );
+				assert.closeTo( actual[ i ], expected[ i ], 1e-6 );
 			}
 		}
 
@@ -253,7 +253,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 
 		for ( i = 0; i < actual.length; i++ ) {
 			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
-				assert.closeTo( actual[ i ], expected[ i ], 1e-12 );
+				assert.closeTo( actual[ i ], expected[ i ], 1e-6 );
 			}
 		}
 	});

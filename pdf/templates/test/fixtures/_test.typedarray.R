@@ -1,5 +1,5 @@
-options( digits = 16 );
-library( jsonlite );
+options( digits = 16 )
+library( jsonlite )
 
 
 <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( '\n' ) %>
@@ -9,7 +9,7 @@ y = <%= rName %>( x, <%= parameters.map( function( p ) { return p.name } ).join(
 cat( y, sep = ",\n" )
 
 data = list(
-	<%= parameters.map( function( p ) { return p.name + ' = ' + p.name } ).join( ',\n' ) %>,
+	<%= parameters.map( function( p ) { return p.name + ' = ' + p.name } ).join( ',\n\t' ) %>,
 	data = x,
 	expected = y
 )

@@ -1,5 +1,5 @@
-options( digits = 16 );
-library( jsonlite );
+options( digits = 16 )
+library( jsonlite )
 
 
 <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( '\n' ) %>

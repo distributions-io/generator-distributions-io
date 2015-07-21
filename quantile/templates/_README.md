@@ -93,7 +93,7 @@ A [<%= distribution %>](https://en.wikipedia.org/wiki/<%= distribution %>_distri
 var x = [ 0, 0.2, 0.4, 0.6, 0.8, 1 ];
 
 var out = quantile( x, {
-	<%- parameters.map( function( p ) { return '\'' + p.name + '\': ' + Math.round( Math.random() * 10 ) + ',' } ).join( '\n\t' ) %>
+	<%- parameters.map( function( p ) { return '\'' + p.name + '\': ' + Math.round( Math.random() * 10 ); } ).join( ',\n\t' ) %>
 });
 // returns [...]
 ```
@@ -157,7 +157,7 @@ By default, when provided a [`typed array`](https://developer.mozilla.org/en-US/
 ``` javascript
 var x, out;
 
-x = new Float32Array( [0,0.2,0.4,0.6,0.8,1] );
+x = new Float32Array( [0.2,0.4,0.6,0.8] );
 
 out = quantile( x, {
 	'dtype': 'int32'
@@ -165,7 +165,7 @@ out = quantile( x, {
 // returns Int32Array( [...] )
 
 // Works for plain arrays, as well...
-out = quantile( [0,0.2,0.4,0.6,0.8,1], {
+out = quantile( [0.2,0.4,0.6,0.8], {
 	'dtype': 'uint8'
 });
 // returns Uint8Array( [...] )

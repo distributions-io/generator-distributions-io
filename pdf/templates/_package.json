@@ -1,7 +1,7 @@
 {
   "name": "<%= name %>",
   "version": "0.0.0",
-  "description": "<%= distribution %>  distribution probability density function (PDF)",
+  "description": "<%= distribution %> distribution probability density function (PDF)",
   "author": {
     "name": "<%= author %>",
     "email": "<%= email %>"
