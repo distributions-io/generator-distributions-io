@@ -37,7 +37,7 @@ describe( 'number cdf', function tests() {
 		expect( cdf ).to.be.a( 'function' );
 	});
 
-	it( 'should evaluate the <%= distribution %> probability density function', function test() {
+	it( 'should evaluate the <%= distribution %> cumulative distribution function', function test() {
 		var actual;
 		for ( var i = 0; i < data.length; i++ ) {
 			actual =  cdf( data[ i ], <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> );

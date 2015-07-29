@@ -145,7 +145,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 				actual =  quantile( data[ i ], {
 					<%- parameters.map( function( p ) {
 						return '\'' + p.name + '\': validationData.' + p.name
-					}).join( ',\n\t\t') %>
+					}).join( ',\n\t\t\t') %>
 				});
 				if ( isFiniteNumber( actual ) && isFiniteNumber( expected[ i ] ) ) {
 					assert.closeTo( actual, expected[ i ] , 1e-12 );
@@ -176,7 +176,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 		actual = quantile( data, {
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 		assert.notEqual( actual, data );
 
@@ -190,7 +190,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 			'copy': false,
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 		assert.strictEqual( actual, data );
 
@@ -223,7 +223,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 		actual = quantile( data, {
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 		assert.notEqual( actual, data );
 
@@ -238,7 +238,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 			'copy': false,
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 		expected = new Float32Array( validationData.expected.map( function( d ) {
 			if (d === 'Inf' ) {
@@ -281,7 +281,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 			'dtype': 'float32',
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 
 		assert.notEqual( actual, data );
@@ -319,7 +319,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 			'accessor': getValue,
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 		assert.notEqual( actual, data );
 
@@ -335,7 +335,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 			'copy': false,
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 		assert.strictEqual( actual, data );
 
@@ -365,7 +365,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 			'path': 'x.1',
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 
 		expected = validationData.expected
@@ -399,7 +399,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 			'sep': '/',
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 		assert.strictEqual( actual, data );
 
@@ -433,7 +433,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 		out = quantile( mat, {
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 
 		for ( i = 0; i < out.length; i++ ) {
@@ -447,7 +447,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 			'copy': false,
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 		assert.strictEqual( mat, out );
 
@@ -482,7 +482,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-quantile', function t
 			'dtype': 'float32',
 			<%- parameters.map( function( p ) {
 				return '\'' + p.name + '\': validationData.' + p.name
-			}).join( ',\n\t\t') %>
+			}).join( ',\n\t\t\t') %>
 		});
 
 		assert.strictEqual( out.dtype, 'float32' );

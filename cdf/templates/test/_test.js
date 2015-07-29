@@ -132,8 +132,7 @@ describe( 'distributions-<%= distribution.toLowerCase() %>-cdf', function tests(
 			data = validationData.data,
 			expected = validationData.expected.map( function( d ) {
 				return d === 'Inf' ? Infinity : d;
-			}),
-			<%= parameters.map( function( p ) { return p.name + ' = validationData.' + p.name } ).join( ',\n\t\t' ) %>;
+			});
 
 			var actual;
 			for ( var i = 0; i < data.length; i++ ) {

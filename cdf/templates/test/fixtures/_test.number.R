@@ -3,7 +3,7 @@ library( jsonlite )
 
 <%= parameters.map( function( p ) { return p.name + ' = ' + p.default } ).join( '\n' ) %>
 x = c( -5, -2.5, 0, 2.5, 5 )
-y = <%= rName %>( x, <%= parameters.map( function( p ) { return p.name } ).join( ',' ) %> )
+y = <%= rName %>( x, <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> )
 
 cat( y, sep = ",\n" )
 

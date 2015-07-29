@@ -1,6 +1,6 @@
 Cumulative Distribution Function
 ===
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][codecov-image]][codecov-url] [![Dependencies][dependencies-image]][dependencies-url]
 
 > [<%= distribution %>](https://en.wikipedia.org/wiki/<%= distribution %>_distribution) distribution [cumulative distribution function](https://en.wikipedia.org/wiki/Cumulative_distribution_function).
 
@@ -371,8 +371,8 @@ Copyright &copy; <%= year %>. The [Compute.io](https://github.com/compute-io) Au
 [travis-image]: http://img.shields.io/travis/distributions-io/<%= repo %>/master.svg
 [travis-url]: https://travis-ci.org/distributions-io/<%= repo %>
 
-[coveralls-image]: https://img.shields.io/coveralls/distributions-io/<%= repo %>/master.svg
-[coveralls-url]: https://coveralls.io/r/distributions-io/<%= repo %>?branch=master
+[codecov-image]: https://img.shields.io/codecov/github/distributions-io/<%= repo %>/master.svg
+[codecov-url]: https://codecov.io/github/distributions-io/<%= repo %>?branch=master
 
 [dependencies-image]: http://img.shields.io/david/distributions-io/<%= repo %>.svg
 [dependencies-url]: https://david-dm.org/distributions-io/<%= repo %>

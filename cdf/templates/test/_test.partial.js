@@ -43,7 +43,7 @@ describe( 'partial cdf', function tests() {
 		expect( cdf ).to.be.a( 'function' );
 	});
 
-	it( 'should return a function which evaluates the probability density function', function test() {
+	it( 'should return a function which evaluates the cumulative distribution function', function test() {
 		var cdf, actual;
 		cdf = partial(  <%= parameters.map( function( p ) { return p.name } ).join( ', ' ) %> );
 		for ( var i = 0; i < data.length; i++ ) {
