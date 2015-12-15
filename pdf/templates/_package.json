@@ -20,18 +20,19 @@
   "main": "./lib",
   "repository": {
     "type": "git",
-    "url": "git://github.com/compute-io/<%= repo %>.git"
+    "url": "git://github.com/distributions-io/<%= repo %>.git"
   },
   "keywords": [
     "distributions.io",
     "distributions",
+    "distribution",
     "probability",
     "statistics",
     "stats",
     "pdf"
   ],
   "bugs": {
-    "url": "https://github.com/compute-io/<%= repo %>/issues"
+    "url": "https://github.com/distributions-io/<%= repo %>/issues"
   },
   "dependencies": {
     "compute-array-constructors": "^1.0.0",

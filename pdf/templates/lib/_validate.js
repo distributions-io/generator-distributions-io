@@ -29,7 +29,7 @@ function validate( opts, options ) {
 		return new TypeError( 'pdf()::invalid input argument. Options argument must be an object. Value: `' + options + '`.' );
 	}
 <%- parameterChecks.join( '\n' ) %>
-	if ( options.hasOwnProperty( 'copy' ) ) {
+	if ( options.h	asOwnProperty( 'copy' ) ) {
 		opts.copy = options.copy;
 		if ( !isBoolean( opts.copy ) ) {
 			return new TypeError( 'pdf()::invalid option. Copy option must be a boolean primitive. Option: `' + opts.copy + '`.' );
